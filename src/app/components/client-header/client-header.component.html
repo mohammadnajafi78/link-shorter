@@ -1,0 +1,32 @@
+<div class="home-menu">
+  <div
+    *ngIf="isSmallScreen"
+    style="margin-left: 16px; cursor: pointer"
+    (click)="settingService.drawer$.next(true)"
+  >
+    <mat-icon style="color: white"> menu </mat-icon>
+  </div>
+  <div class="menu-title" [style.fontSize]="isSmallScreen ? '20px' : '24px'">
+    کوتاه کننده لینک
+  </div>
+  <div class="menu-links" *ngIf="!isSmallScreen">
+    <!-- <span>&nbsp;</span> -->
+    <button mat-button (click)="openLink(['/'])">وبلاگ</button>
+
+    <button mat-button (click)="openLink(['/send/ticket'])">پشتیبانی</button>
+  </div>
+  <div class="menu-profile" *ngIf="!isSmallScreen">
+    <button
+      *ngIf="!!user"
+      mat-flat-button
+      (click)="openLink(['/member/dashboard'])"
+    >
+      داشبورد
+    </button>
+
+    <button *ngIf="!user" mat-flat-button (click)="openLink(['/user/login'])">
+      وارد شوید
+    </button>
+  </div>
+</div>
+<router-outlet></router-outlet>

@@ -1,0 +1,40 @@
+<div>
+  <mat-form-field style="width: 100%;" appearance="fill">
+    <mat-label> موجودی کاربر</mat-label>
+    <input [(ngModel)]="user.salary" type="text" matInput/>
+  </mat-form-field>
+  <div class="row" >
+    <mat-form-field class="col-6" appearance="fill">
+      <mat-label>
+        وضعیت کاربر
+      </mat-label>
+      <mat-select [(ngModel)]="user.status" >
+        <mat-option value="active">
+          فعال
+        </mat-option>
+        <mat-option value="inactive">
+          غیر فعال
+        </mat-option>
+        <mat-option value="block">
+          بلاک
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="col-6" appearance="fill">
+      <mat-label>
+        نقش
+      </mat-label>
+      <mat-select  [(ngModel)]="user.role" >
+        <mat-option value="user">
+          کاریر
+        </mat-option>
+        <mat-option value="admin">
+          ادمین
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div style="direction: ltr" >
+    <button (click)="close()" mat-raised-button color="primary" > ذخیره </button>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+.main {
+  margin: 30px;
+}
+
+.title {
+  padding: 20px 0px;
+  font-weight: 600;
+
+  span {
+    font-size: 18px;
+    border-bottom: 3px solid #2985fd;
+  }
+}
+
+.card-notif {
+  margin-top: 36px;
+  width: 100%;
+}
+
+.notif-card {
+  margin-top: 20px;
+}
+
+.title-notif {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+}
+
+.content-notif {
+  display: flex;
+  justify-content: space-between;
+}
+
+.notif-img {
+  margin-left: 30px;
+}
+
+.notif-text {
+  padding-top: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+  .card {
+    margin-top: 30px;
+  }
+}
+
+.detail {
+  margin-top: 20px;
+  text-align: center;
+  color: #ffffff;
+  padding: 8px;
+  background: #f8565b;
+}
+
+.salary-details {
+  margin: 30px 0px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.icon {
+  margin: 10px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  mat-icon {
+    font-size: 32px;
+  }
+
+  span {
+    //color: #cfd1d4;
+    opacity: 0.7;
+    font-size: 18px;
+    margin: 4px 10px;
+    padding-top: 14px;
+  }
+}
+.chart-container {
+  margin: 30px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+//.card{
+//  margin: 10px;
+//}

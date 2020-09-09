@@ -1,0 +1,64 @@
+<div class="main">
+  <mat-card class="col-12">
+    <div class="title">
+      <span> تولید کد جاوا اسکریپت </span>
+    </div>
+    <div>
+      اگر شما دارای وبسایتی هستید که صدها یا هزاران لینک در آن وجود دارد و
+      میخواهید آنها را به کوتاه کننده لینک تواَد تغییر دهید لطفا از کد اسکریپت
+      زیر کمک بگیرید
+    </div>
+
+    <div class="type">
+      <mat-form-field style="width: 100%" class="link" appearance="outline">
+        <mat-label> نوع تبلیغات </mat-label>
+        <mat-select>
+          <mat-option [value]="false"> مستقیم (بدون درامد) </mat-option>
+          <mat-option [value]="true"> غیر مستقیم (درامدزا) </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="type">
+      <mat-form-field style="width: 100%" class="link" appearance="outline">
+        <mat-label> نوع دامنه های انتخابی </mat-label>
+        <mat-select>
+          <mat-option value="Include"> Include </mat-option>
+          <mat-option value="Exlude"> Exclude </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="hint">
+        <div>
+          Include: این گزینه فقط دامنه هایی که در لیست دامنه ها قرار گرفته باشد
+          را در سایت شما کوتاه میکند.
+        </div>
+        <div>
+          Exclude: اگر شما میخواهید همه لینکهای وبسایت خود را کوتاه کنید اما فقط
+          میخواهید دامنه هایی را از آن استثنا کنید که کوتاه نشود از این گزینه
+          کمک بگیرید.
+        </div>
+      </div>
+    </div>
+    <div class="domain-list">
+      <mat-form-field style="width: 100%" appearance="outline">
+        <textarea rows="8" placeholder="لیست دامنه ها" matInput></textarea>
+        <mat-hint>
+          هر دامنه را در خط یک خط وارد نمایید. همچنین وایلدکارد دامین مجاز است.
+          لطفا به مثال زیر توجه فرمایید:
+        </mat-hint>
+      </mat-form-field>
+    </div>
+    <div style="margin-top: 20px">
+      <div>mega.nz</div>
+      <div>*.zippyshare.com</div>
+      <div>depositfiles.com</div>
+    </div>
+    <div style="margin-top: 14px">
+      حالا به آسانی روی دکمه زیر کلیک کنید و کد تولید شده را کپی کنید و در وبلاگ
+      یا وبسایت خود قرار دهید (بهتر است کد در بالای صفحه و بین تگ head قرار
+      بگیرد) و لینکهای شما به صورت خودکار کوتاه خواهند شد.
+    </div>
+    <div style="margin-top: 20px; direction: ltr">
+      <button mat-raised-button color="primary">تولید کد جاوا اسکریپ</button>
+    </div>
+  </mat-card>
+</div>

@@ -1,0 +1,97 @@
+<div class="main">
+  <mat-card class="col-12">
+    <mat-card-title>
+      <span> مشخصات فردی </span>
+    </mat-card-title>
+
+    <mat-card-content style="margin-top: 20px">
+      <div class="row input-container">
+        <mat-form-field appearance="outline" class="col-md-4 col-xs-6 col-12">
+          <mat-label> شماره موبایل </mat-label>
+          <input [value]="user.phone" type="text" disabled matInput />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-md-4 col-xs-6 col-12">
+          <mat-label> نام </mat-label>
+          <input [(ngModel)]="user.name" type="text" matInput />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-md-4 col-xs-6 col-12">
+          <mat-label> نام خانوادگی </mat-label>
+          <input [(ngModel)]="user.family" type="text" matInput />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-md-4 col-xs-6 col-12">
+          <mat-label> شهر </mat-label>
+          <input [(ngModel)]="user.city" type="text" matInput />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-md-4 col-xs-6 col-12">
+          <mat-label> استان </mat-label>
+          <input [(ngModel)]="user.state" type="text" matInput />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-md-4 col-xs-6 col-12">
+          <mat-label> کشور </mat-label>
+          <input [(ngModel)]="user.country" type="text" matInput />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-12">
+          <mat-label> آدرس </mat-label>
+          <textarea
+            style="line-height: 2"
+            [(ngModel)]="user.address"
+            rows="3"
+            type="text"
+            matInput
+          ></textarea>
+        </mat-form-field>
+      </div>
+      <mat-divider class="divider"></mat-divider>
+      <mat-card-title class="sec-title">
+        <span> حداقل مقدار برداشت </span>
+      </mat-card-title>
+      <div
+        style="margin-top: 10px"
+        *ngFor="let item of setting.withdrawsMethods"
+      >
+        <div *ngIf="item.active">
+          {{ item.title }} - {{ item.min | price }} تومان
+        </div>
+      </div>
+      <div class="row input-container">
+        <mat-form-field appearance="outline" class="col-md-4 col-12">
+          <mat-label> روش پرداخت </mat-label>
+          <mat-select
+            [(ngModel)]="user.withdrawsType"
+            [value]="user.withdrawsType"
+          >
+            <mat-option
+              *ngFor="let item of setting.withdrawsMethods"
+              [value]="item._id"
+            >
+              {{ item.title }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-md-4 col-12">
+          <mat-label> حساب برداشت </mat-label>
+          <input type="text" [(ngModel)]="user.accountAddress" matInput />
+        </mat-form-field>
+      </div>
+      <ul class="description">
+        <li *ngFor="let item of setting.withdrawsMethods">
+          {{ item.description }}
+        </li>
+      </ul>
+    </mat-card-content>
+    <mat-card-actions dir="ltr">
+      <div class="btn">
+        <button (click)="updateProfile()" mat-raised-button color="primary">
+          <mat-icon>check</mat-icon>
+          ذخیره پروفایل
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,32 @@
+<h3 *ngIf="data.state === 'create'"> ایجاد اطلاعیه جدید </h3>
+<h3 *ngIf="data.state === 'edit'"> ویرایش اطلاعیه </h3>
+<div>
+  <mat-form-field style="width: 100%" appearance="outline">
+    <mat-label> موضوع اطلاعیه</mat-label>
+    <input type="text" [(ngModel)]="data.notification.title" matInput/>
+  </mat-form-field>
+  <angular-editor
+    [placeholder]="'توضیحات اطلاعیه'"
+    [(ngModel)]="data.notification.description"
+    [config]="editorConfig"
+  ></angular-editor>
+  <mat-slide-toggle style="direction: ltr" [(ngModel)]="data.notification.active" style="margin: 20px 0px;">
+    وضعیت اطلاعیه {{data.notification.active ? 'فعال' : 'غیر فعال'}}
+  </mat-slide-toggle>
+  <div style="direction: ltr">
+    <button
+      mat-raised-button
+      color="primary"
+      *ngIf="data.state === 'create'"
+      (click)="create()"
+    > ایجاد
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      *ngIf="data.state === 'edit'"
+      (click)="update()"
+    > ویرایش
+    </button>
+  </div>
+</div>

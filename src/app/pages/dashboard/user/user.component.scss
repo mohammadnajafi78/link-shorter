@@ -1,0 +1,33 @@
+mat-card-title {
+  padding: 20px 0px;
+  font-weight: 600;
+  span {
+    border-bottom: 3px solid #2985fd;
+  }
+}
+mat-form-field {
+  margin-top: 20px;
+}
+.input-container {
+  margin: 40px 0px;
+}
+.sec-title {
+  padding-top: 50px;
+}
+.main {
+  margin: 30px;
+}
+@media only screen and (max-width: 768px) {
+  .main {
+    margin: 10px;
+  }
+}
+.btn {
+  margin: 20px;
+}
+li {
+  margin-top: 10px;
+}
+.description{
+  line-height: 2;
+}

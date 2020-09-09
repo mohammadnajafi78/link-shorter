@@ -1,0 +1,187 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~video.js/dist/video-js.min.css";
+@import "~videojs-overlay/src/plugin.scss";
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  padding: 0px;
+}
+
+@font-face {
+  font-family: "shabnam";
+  src: url("/assets/fonts/Shabnam-FD.eot");
+  src: url("/assets/fonts/Shabnam-FD.eot?#iefix") format("embedded-opentype"),
+  url("/assets/fonts/Shabnam-FD.woff") format("woff"),
+  url("/assets/fonts/Shabnam-FD.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+a,
+p,
+span:not(.vjs-icon-placeholder),
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div:not(.vjs-play-progress):not(.vjs-volume-level),
+ul,
+li,
+table,
+tr,
+td,
+button,
+input,
+mat-toolbar,
+mat-card {
+  font-family: shabnam !important;
+}
+
+a, a:visited, a:hover, a:active {
+  color: inherit;
+}
+
+.search {
+  margin: 1rem 2rem 0rem 0rem;
+
+  mat-icon {
+    cursor: pointer;
+  }
+}
+
+.table {
+  width: 100%;
+}
+
+th,
+td {
+  padding: 9px !important;
+}
+
+.mat-cell {
+  border-bottom: none !important;
+}
+
+//::-webkit-scrollbar {
+//  width: 0.75em;
+//}
+//
+//::-webkit-scrollbar-track {
+//  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+//}
+//
+//::-webkit-scrollbar-thumb {
+//  background-color: #666;
+//  border-left: 1px solid white;
+//  outline: 1px solid white;
+//}
+
+.table-container {
+  margin: 16px;
+  margin-top: 1rem;
+}
+
+.search-card {
+  margin-bottom: 10px;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.not-find {
+  text-align: center;
+  margin-top: 20px;
+}
+
+snack-bar-container {
+  color: #5cb85c;
+}
+
+.pagination-container {
+  background-color: #ffffff;
+  display: flex;
+  // justify-content: right;
+  justify-content: flex-end;
+}
+
+.pagination {
+  // margin-right: 2rem;
+  display: flex;
+  margin-left: 20px;
+
+  align-items: center;
+
+  mat-form-field {
+    margin-right: 15px;
+    width: 50px;
+
+    mat-select {
+      text-align: center;
+      font-size: 12px;
+    }
+  }
+}
+
+.inf {
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+.alert {
+  margin-top: 20px;
+  padding: 8px;
+  border-radius: 3px;
+  border: 1px solid;
+}
+
+.alert-container {
+  padding-bottom: 100px;
+}
+
+.alert-success {
+  color: #0c5460;
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+}
+
+.alert-warning {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.vjs-overlay {
+  img{
+    width: 728px;
+    max-width: 190%;
+    height: 75px;
+  }
+}
+.video-js{
+  max-width: 100% !important;
+}
+a{
+  cursor: pointer;
+}

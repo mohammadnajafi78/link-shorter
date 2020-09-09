@@ -1,0 +1,32 @@
+.card-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+div.event-header,
+div.event-items {
+  padding: 16px;
+}
+.item {
+  margin-top: 25px;
+}
+.success {
+  color: #5cb85c;
+  font-size: 20px;
+}
+
+.cancel {
+  color: #d9534f;
+  font-size: 20px;
+}
+
+.waiting {
+  color: #f0ad4e;
+  font-size: 20px;
+}
+.address{
+  line-height: 2;
+}
+.title{
+  font-weight: 600;
+}

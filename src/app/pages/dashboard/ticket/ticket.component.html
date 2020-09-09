@@ -1,0 +1,101 @@
+<div class="main">
+  <mat-card class="col-12">
+    <h3 *ngIf="user.status === 'block'" style="color: red">
+      کاربر گرامی حساب کاربری شما بلاک شده است. برای اطلاعات بیشتر به پشتیبانی
+      پیغام دهید
+    </h3>
+    <mat-card-title>
+      <span> ارسال تیکت پشتیبانی </span>
+    </mat-card-title>
+
+    <mat-card-content style="margin-top: 20px">
+      <div class="row input-container">
+        <form [formGroup]="ticketForm">
+          <mat-form-field appearance="outline" class="col-md-4 col-12">
+            <mat-label> نام</mat-label>
+            <input
+              [(ngModel)]="ticket.name"
+              formControlName="name"
+              type="text"
+              matInput
+            />
+            <mat-error *ngIf="inputs.name.errors"> نام الزامی است</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-md-4 col-12">
+            <mat-label> نام خانوادگی</mat-label>
+            <input
+              [(ngModel)]="ticket.family"
+              formControlName="family"
+              type="text"
+              matInput
+            />
+            <mat-error *ngIf="inputs.family.errors">
+              نام خانوادگی الزامی است
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-md-4 col-12">
+            <mat-label> شماره تلفن</mat-label>
+            <input
+              [(ngModel)]="user.phone"
+              formControlName="phone"
+              readonly
+              type="text"
+              matInput
+            />
+            <mat-error *ngIf="inputs.phone.errors">
+              شماره تلفن الزامی است
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-md-4 col-12">
+            <mat-label> موضوع</mat-label>
+            <input
+              [(ngModel)]="ticket.subject"
+              formControlName="subject"
+              type="text"
+              matInput
+            />
+            <mat-error *ngIf="inputs.subject.errors">
+              موضوع الزامی است
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-md-4 col-12">
+            <mat-label> ایمیل</mat-label>
+            <input
+              [(ngModel)]="ticket.email"
+              formControlName="email"
+              type="text"
+              matInput
+            />
+            <mat-error *ngIf="inputs.email.errors">
+              ایمیل الزامی است
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-12">
+            <mat-label> پیام</mat-label>
+            <textarea
+              style="line-height: 2"
+              [(ngModel)]="ticket.content"
+              formControlName="content"
+              rows="4"
+              type="text"
+              matInput
+            ></textarea>
+            <mat-error *ngIf="inputs.content.errors">
+              متن پیام الزامی است
+            </mat-error>
+          </mat-form-field>
+        </form>
+      </div>
+    </mat-card-content>
+    <mat-card-actions dir="ltr">
+      <div class="save">
+        <button (click)="createTicket()" mat-raised-button color="primary">
+          <mat-icon>check</mat-icon>
+          ارسال تیکت
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,94 @@
+<div class="login" >
+  <mat-progress-bar *ngIf="loading" color="accent" mode="query"></mat-progress-bar>
+  <div class="main">
+    <div class="login-container">
+      <!--  برای شماره تلفن  -->
+      <mat-card
+        *ngIf="state === 'phone'"
+        class="mat-elevation-z2 col-md-4 col-sm-8 col-12 card "
+      >
+        <div class="title">
+          <mat-card-title>
+            وارد شوید
+          </mat-card-title>
+        </div>
+
+        <div class="form-container">
+          <mat-form-field class="col-sm-10 col-11" appearance="outline">
+            <mat-label>
+              شماره موبایل
+            </mat-label>
+            <input
+              [(ngModel)]="phone"
+              [formControl]="phoneControl"
+              matInput
+              type="text"
+            />
+            <mat-icon matSuffix>
+              phone
+            </mat-icon>
+            <mat-error *ngIf="phoneControl.hasError('required')">
+              شماره تلفن الزامی است
+            </mat-error>
+            <mat-error *ngIf="phoneControl.hasError('pattern')">
+              شماره تلفن 10 یا 11 رقم انگلیسی است
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="button-container">
+          <button class="btn"  (click)="signin()" mat-raised-button color="primary">
+            ارسال کد
+          </button>
+        </div>
+      </mat-card>
+
+      <!--  برای کد تائید  -->
+      <mat-card
+        *ngIf="state === 'key'"
+        class="col-md-4 col-sm-8 col-12 mat-elevation-z2"
+      >
+        <div class="title">
+          <mat-card-title>
+            لطفا کد ارسال شده را وارد کنید
+          </mat-card-title>
+        </div>
+
+        <div class="form-container">
+          <mat-form-field class="col-sm-10 col-11" appearance="outline">
+            <mat-label>
+              کد تائید
+            </mat-label>
+            <input
+              [(ngModel)]="key"
+              [formControl]="keyControl"
+              matInput
+              type="text"
+            />
+
+            <mat-error *ngIf="keyControl.hasError('required')">
+              کد تائید الزامی است
+            </mat-error>
+
+            <mat-error *ngIf="keyControl.hasError('pattern')">
+              کد باید 6 رقم باشد
+            </mat-error>
+            <mat-icon matSuffix>
+              lock
+            </mat-icon>
+          </mat-form-field>
+          <div *ngIf="verifyError" class="error">
+            {{verifyError}}
+          </div>
+        </div>
+
+        <div class="button-container">
+          <button (click)="verify()" mat-raised-button color="primary">
+            اعتبار سنجی کد
+          </button>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,71 @@
+<div class="main">
+  <mat-card class="col-12">
+    <mat-card-title>
+      <span>
+        اطلاعات برداشت
+      </span>
+    </mat-card-title>
+
+
+      <div class="input-container">
+        <table>
+         <tr>
+           <td> نام : </td>
+           <td> {{user.name}} </td>
+         </tr>
+          <tr>
+            <td> نام خانوادگی : </td>
+            <td> {{user.family}} </td>
+          </tr>
+          <tr>
+            <td> شماره تلفن : </td>
+            <td> {{user.phone}} </td>
+          </tr>
+          <tr>
+            <td> کشور :  </td>
+            <td> {{user.country}} </td>
+          </tr>
+          <tr>
+            <td> شهر : </td>
+            <td> {{user.city}} </td>
+          </tr>
+          <tr>
+            <td> استان : </td>
+            <td> {{user.state}} </td>
+          </tr>
+          <tr>
+            <td> نوع برداشت : </td>
+            <td> {{method.title}} </td>
+          </tr>
+          <tr>
+            <td> حساب برداشت : </td>
+            <td> {{user.accountAddress}} </td>
+          </tr>
+        </table>
+          <mat-form-field appearance="outline" class="col-md-5 col-10">
+            <mat-label> مبلغ برداشت </mat-label>
+            <input
+              [formControl]="amountController"
+              [(ngModel)]="amount"
+              type="number"
+              matInput
+            />
+            <mat-hint> مبلغ برداشت را به تومان بنویسید </mat-hint>
+            <mat-error *ngIf="amountController.hasError('required')">
+              مبلغ الزامی است
+            </mat-error>
+            <mat-error *ngIf="amountController.hasError('max')">
+              برداشت بیشتر از درامد شماست
+            </mat-error>
+          </mat-form-field>
+      </div>
+    <mat-card-actions dir="ltr">
+      <div class="save">
+        <button (click)="createWithdraws()" mat-raised-button color="primary">
+          <mat-icon>check</mat-icon>
+          ذخیره
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

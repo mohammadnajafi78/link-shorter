@@ -1,0 +1,45 @@
+@import "../../theme.scss";
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 250px;
+}
+
+.sidenav {
+  background-color: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.sidebar-item {
+  margin-right: 10px;
+}
+.menu-header {
+  background-color: #3f51b5;
+  color: white;
+}
+// join
+.menu-item {
+  margin: 6px 4px;
+  padding: 12px 6px;
+  border-radius: 4px;
+  width: calc(100% - 10px) !important;
+  background-color: white;
+  outline: none;
+  cursor: pointer;
+
+  transition-property: all;
+  transition-duration: 200ms;
+  transition-timing-function: linear;
+
+  &.enabled {
+    background-color: mat-color($primary, default);
+    color: white;
+  }
+}

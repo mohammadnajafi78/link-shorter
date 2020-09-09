@@ -1,0 +1,49 @@
+<mat-drawer-container class="example-container">
+  <mat-drawer
+    mode="push"
+    position="start"
+    (openedChange)="settingService.drawer$.next($event)"
+    [opened]="settingService.drawer$ | async"
+  >
+    <div dir="rtl" style="min-width: 80vw;max-width: 80vw;">
+      <mat-toolbar color="primary">
+        <mat-toolbar-row>
+          <span>راهبری</span>
+        </mat-toolbar-row>
+      </mat-toolbar>
+      <mat-action-list>
+        <button mat-list-item (click)="openLink(['/'])">
+          <mat-icon matListIcon> home</mat-icon>
+          <h3 matLine> صفحه اصلی </h3>
+        </button>
+        <button mat-list-item>
+          <mat-icon matListIcon>book</mat-icon>
+          <h3 matLine>وبلاگ</h3>
+        </button>
+        <button mat-list-item (click)="openLink(['/send/ticket'])">
+          <mat-icon matListIcon> local_offer</mat-icon>
+          <h3 matLine > پشتیبانی </h3>
+        </button>
+        <mat-divider></mat-divider>
+        <button
+          mat-list-item
+          *ngIf="!(userService.user$ | async)"
+          (click)="openLink(['/user/login'])"
+        >
+          <mat-icon matListIcon>person</mat-icon>
+          <h3 matLine> وارد شوید </h3>
+        </button>
+        <button
+          mat-list-item
+          *ngIf="!!(userService.user$ | async)"
+          (click)="openLink(['/member/dashboard'])"
+        >
+          <h3 matLine> داشبورد </h3>
+        </button>
+      </mat-action-list>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

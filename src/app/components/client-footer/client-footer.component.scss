@@ -1,0 +1,39 @@
+.footer {
+  background-color: #eee;
+  padding: 15px 0px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: space-around;
+  font-size: 14px;
+  a{
+    text-decoration: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .social{
+    margin-top: 20px;
+  }
+}
+
+.social {
+  display: flex;
+  justify-content: space-around;
+  img {
+    width: 17px;
+    height: 17px;
+    filter: grayscale(100%);
+    transition: ease-out 1s;
+  }
+  img:hover{
+    filter: grayscale(0%);
+  }
+}

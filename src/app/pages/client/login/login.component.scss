@@ -1,0 +1,54 @@
+.main {
+  padding: 60px;
+}
+
+.login{
+  background-color: #103c9b;
+  height: 100vh;
+}
+
+@media only screen and (max-width: 768px) {
+  .main {
+    padding: 10px;
+  }
+}
+.error{
+  color: red;
+}
+.login-container {
+  display: flex;
+  justify-content: center;
+  //align-items: center;
+}
+
+.logo {
+  text-align: center;
+  color: #ffffff;
+}
+
+mat-card {
+  margin-top: 20px;
+}
+
+.button-container {
+  direction: ltr;
+
+}
+
+.form-container {
+  text-align: center;
+
+}
+
+.title {
+  text-align: center;
+
+  mat-card-title {
+    margin: 20px 0px;
+  }
+}
+
+mat-error {
+  margin: 0px !important;
+  font-size: 13px;
+}

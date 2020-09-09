@@ -1,0 +1,25 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [mode]="'side'"
+    [opened]="true"
+  >
+    <mat-toolbar class="menu-header"> داشبورد مدیریتی </mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item *ngFor="let route of routes" [routerLink]="route.path">
+        <mat-icon>
+          {{ route.icon }}
+        </mat-icon>
+        <span class="sidebar-item">
+          {{ route.title }}
+        </span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

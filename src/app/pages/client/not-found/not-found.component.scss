@@ -1,0 +1,15 @@
+@import "../../../theme.scss";
+$base-color: mat-color($primary, default);
+
+.main{
+  background-color: $base-color;
+  height: 100vh;
+}
+.card-container{
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  mat-card{
+    padding: 40px;
+  }
+}

@@ -1,0 +1,12 @@
+<div dir="rtl">
+  <h1 mat-dialog-title>{{ title }}</h1>
+  <div mat-dialog-content>
+    <p>{{ content }}</p>
+  </div>
+  <div mat-dialog-actions dir="ltr">
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>
+      بله
+    </button>
+    <button mat-button (click)="dialogRef.close(false)">خیر</button>
+  </div>
+</div>

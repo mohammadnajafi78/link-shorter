@@ -1,0 +1,229 @@
+<mat-toolbar color="primary">
+  <span> برداشت ها </span>
+</mat-toolbar>
+<mat-progress-bar
+  *ngIf="loading"
+  color="accent"
+  mode="indeterminate"
+></mat-progress-bar>
+
+<div class="table-container">
+  <mat-card class="search-card">
+    <div class="row space-between">
+      <div class="col-4">
+        <mat-form-field style="width: 100%;">
+          <mat-label> جست و جو </mat-label>
+          <input
+            type="text"
+            placeholder="جست و جو کنید"
+            matInput
+            [formControl]="searchControl"
+          />
+          <mat-icon matSuffix> search </mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="col-3">
+        <mat-form-field>
+          <mat-select [(ngModel)]="status" (selectionChange)="resetPage()">
+            <mat-option [value]="'waiting'">
+              برداشت های در انتظار
+            </mat-option>
+            <mat-option [value]="'success'">
+              برداشت های موفق
+            </mat-option>
+
+            <mat-option [value]="'cancel'">
+              برداشت های لغو شده
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-card>
+  <div
+    *ngIf="withdraws !== null && withdraws.length === 0 && !loading"
+    class="not-find"
+  >
+    برداشتی یافت نشد!
+  </div>
+  <div *ngIf="withdraws !== null && withdraws.length > 0">
+    <table mat-table [dataSource]="withdraws" class="table mat-elevation-z8">
+      <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let element; let index = index">
+          {{ index + 1 }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>نام</th>
+        <td mat-cell *matCellDef="let element">{{ element.user.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="family">
+        <th mat-header-cell *matHeaderCellDef>نام خانوادگی</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.user.family }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef>شماره تلفن</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.user.phone }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>وضعیت</th>
+        <td mat-cell *matCellDef="let element" [ngSwitch]="element.status">
+          <span *ngSwitchCase="'waiting'" class="waiting">
+            در انتظار
+          </span>
+          <span *ngSwitchCase="'success'" class="success">
+            پرداخت شده
+          </span>
+          <span *ngSwitchCase="'cancel'" class="cancel">
+            لغو شده
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef>مقدار برداشت</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.amount | price }} تومان
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="trackNumber">
+        <th mat-header-cell *matHeaderCellDef>کد رهگیری</th>
+        <td mat-cell *matCellDef="let element" [ngSwitch]="element.status">
+          <span *ngSwitchCase="'success'"> {{ element.trackNumber }} </span>
+          <span *ngSwitchCase="'waiting'"> تائید نشده </span>
+          <span *ngSwitchCase="'cancel'"> لغو شده </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>نوع برداشت</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.type }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="account">
+        <th mat-header-cell *matHeaderCellDef>مقصد پرداخت</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.user.accountAddress }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>تاریخ ثبت برداشت</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.createdAt | jalaali: "dddd  jD jMMMM jYYYY" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="updatedAt">
+        <th mat-header-cell *matHeaderCellDef>بروزرسانی</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.updatedAt | jalaali: "dddd  jD jMMMM jYYYY" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>عملیات</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            color="primary"
+            mat-icon-button
+            [routerLink]="['/admin/dashboard/withdraws', element._id]"
+          >
+            <mat-icon>info</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            style="color: teal;"
+            (click)="setSuccess(element)"
+            *ngIf="element.status === 'waiting'"
+          >
+            <mat-icon>check_circle</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="setCancel(element)"
+            *ngIf="element.status === 'waiting'"
+          >
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <div class="pagination-container justify-content-left mat-elevation-z1">
+      <div class="pagination">
+        <span class="inf">
+          تعداد نمایش در هر صفحه
+        </span>
+        <mat-form-field>
+          <mat-select [(ngModel)]="limit" (selectionChange)="selectionChange()">
+            <mat-option [value]="10">
+              10
+            </mat-option>
+            <mat-option [value]="20">
+              20
+            </mat-option>
+            <mat-option [value]="50">
+              50
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <span class="inf">
+          {{ skip + 1 }} تا {{ skip + limit < count ? skip + limit : count }} از
+          {{ count }}
+        </span>
+
+        <button
+          (click)="firstPage()"
+          [disabled]="skip === 0"
+          mat-icon-button
+          matTooltip="صفحه اول"
+        >
+          <mat-icon>last_page</mat-icon>
+        </button>
+
+        <button
+          (click)="prevPage()"
+          [disabled]="skip === 0"
+          mat-icon-button
+          matTooltip="صفحه قبل"
+        >
+          <mat-icon>navigate_next</mat-icon>
+        </button>
+
+        <button
+          (click)="nextPage()"
+          [disabled]="limit + skip >= count"
+          mat-icon-button
+          matTooltip="صفحه بعد"
+        >
+          <mat-icon>navigate_before</mat-icon>
+        </button>
+        <button
+          (click)="lastPage()"
+          [disabled]="limit + skip >= count"
+          mat-icon-button
+          matTooltip="صفحه آخر"
+        >
+          <mat-icon>first_page</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

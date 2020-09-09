@@ -1,0 +1,82 @@
+.main {
+  margin: 16px;
+  margin-top: 1rem;
+}
+
+.link-container {
+  display: flex;
+  justify-content: space-between;
+}
+.des {
+  margin-right: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  a {
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: none;
+  }
+  a:visited {
+    color: inherit;
+  }
+}
+.link-header {
+  display: flex;
+  justify-content: space-between;
+}
+.shortLink {
+  justify-content: space-between;
+}
+.details {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: 12px;
+  mat-icon {
+    font-size: 16px;
+  }
+}
+.chart {
+  mat-icon {
+    font-size: 20px;
+    color: #ffaf40;
+  }
+  a {
+    color: inherit;
+  }
+}
+.detail-link {
+  margin-right: 8px;
+  color: #64a1ff;
+  font-weight: 600;
+  opacity: 0.8;
+}
+.detail-link:hover {
+  opacity: 1;
+}
+.btn-group {
+  display: flex;
+  align-items: flex-start;
+  button {
+    margin-left: 6px;
+  }
+}
+.info {
+  margin-top: 20px;
+}
+.pagination {
+  margin: 20px 0px;
+  display: flex;
+  justify-content: space-between;
+}
+@media only screen and (max-width: 768px) {
+  .btn-group{
+    margin: 20px 0px;
+  }
+  .toggle{
+    margin-top: 20px;
+  }
+}

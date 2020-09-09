@@ -1,0 +1,101 @@
+<div class="main">
+  <mat-card class="col-12">
+    <mat-card-title class="title">
+      <span>
+        اطلاعیه ها
+      </span>
+    </mat-card-title>
+    <mat-card *ngFor="let notification of notifications" class="notif-card">
+      <mat-card-title class="title-notif">
+        <div class="col-6">
+          {{notification.title}}
+        </div>
+        <div class="date-notif">
+          <mat-chip-list>
+            <mat-chip color="accent" selected>
+              {{notification.createdAt|jalaali:"DD MMMM YYYY"}}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+      </mat-card-title>
+      <div class="content-notif">
+        <div [innerHTML]="notification.description" class="col-9 notif-text"></div>
+      </div>
+    </mat-card>
+
+  </mat-card>
+
+  <div class="salary-details">
+
+    <div class=" col-md-3 col-12">
+      <mat-card class="col-12">
+        <div class="title">
+          لینک های درامد زا
+        </div>
+        <div class="icon">
+          <mat-icon style="color: teal;">link</mat-icon>
+          <span>
+          {{linkCount}}
+        </span>
+        </div>
+      </mat-card>
+    </div>
+    <div class="card col-md-3 col-12">
+      <mat-card class="col-12">
+        <div class="title">
+          مجموع نمایش درآمدزا
+        </div>
+        <div class="icon">
+          <mat-icon style="color: #2985fd;"> show_chart</mat-icon>
+          <span>
+          {{totalVisit}}
+        </span>
+        </div>
+      </mat-card>
+    </div>
+    <div class="card col-md-3 col-12">
+      <mat-card class="col-12">
+        <div class="title">
+          مجموع درآمد
+        </div>
+        <div class="icon">
+          <mat-icon style="color: #f5cf02;">attach_money</mat-icon>
+          <span>
+          {{user.salary|price}} تومان
+        </span>
+        </div>
+      </mat-card>
+    </div>
+    <div class="card col-md-3 col-12">
+      <mat-card class="col-12">
+        <div class="title">
+          درآمد از زیرمجموعه ها
+        </div>
+        <div class="icon">
+          <mat-icon style="color: #f5a;">share</mat-icon>
+          <span>
+          {{user.subsetSalary|price}} تومان
+        </span>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<div class="chart-container ">
+  <ngx-charts-line-chart
+    *ngIf=" multi[0].series.length > 0"
+    (window:resize)="onResize($event)"
+    [view]="view"
+    [scheme]="colorScheme"
+    [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel"
+    [xAxis]="xAxis"
+    [yAxis]="yAxis"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
+    [timeline]="timeline"
+    [results]="multi"
+  >
+  </ngx-charts-line-chart>
+  <div *ngIf="multi[0].series.length === 0"> لینک های شما در یک ماه اخیر بازدید نداشته است </div>
+</div>

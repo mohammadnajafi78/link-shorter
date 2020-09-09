@@ -1,0 +1,172 @@
+<div *ngIf="user !== null" class="withdraw-details">
+  <div class="col-md-4 col-10">
+    <mat-card class="col-120">
+      <div class="title">موجودی کل در دسترس</div>
+      <div class="icon">
+        <mat-icon style="color: #00d7c0"> attach_money</mat-icon>
+        <span> {{ user.salary | price }} تومان </span>
+      </div>
+    </mat-card>
+  </div>
+  <div class="card col-md-4 col-10">
+    <mat-card class="col-12">
+      <div class="title">در انتظار برداشت</div>
+      <div class="icon">
+        <mat-icon style="color: #f5a">history</mat-icon>
+        <span> {{ totalWaiting | price }} تومان </span>
+      </div>
+    </mat-card>
+  </div>
+  <div class="card col-md-4 col-10">
+    <mat-card class="col-12">
+      <div class="title">مجموع برداشت</div>
+      <div class="icon">
+        <mat-icon style="color: #2985fd">done_all</mat-icon>
+        <span> {{ totalSuccess | price }} تومان </span>
+      </div>
+    </mat-card>
+  </div>
+</div>
+<div class="main">
+  <div class="col-11">
+    <div class="row alert-container">
+      <div class="col-md-2 col-12" class="btn-submit" dir="ltr">
+        <button
+          (click)="goToWithdraws()"
+          class="withdraw-btn"
+          mat-raised-button
+          color="primary"
+        >
+          برداشت مبلغ
+        </button>
+      </div>
+      <div class="col-sm-10 col-12">
+        <div class="alert alert-success">
+          <b> نکته: </b> هنگامیکه درآمد حساب شما به حداقل مبلغ برداشت یا بیشتر
+          برسد شما میتوانید با استفاده از دکمه سمت راست "برداشت مبلغ" درخواست
+          واریز بدهید. درآمد شما حداکثر تا 4 روز کاری (به جز تعطیلات رسمی) به
+          حساب واریز خواهد شد. لطفا در این بازه تا اتمام زمان تعیین شده با ما
+          تماس برقرار نکنید تا روال کار انجام شود.
+        </div>
+
+        <div class="alert alert-success">
+          <b> مهم: </b> جهت دریافت درآمد شما باید روش پرداخت و شماره حساب را از
+          <a class="link" href="member/dashboard/profile" target="_blank">
+            اینجا
+          </a>
+          تنظیم کنید. همچنین لازم است سایر اطلاعات خواسته شده را با دقت و صحیح
+          در بخش پروفایل وارد نمایید.
+        </div>
+        <div class="alert alert-warning">
+          <b> اخطار: </b> پس از ارسال درخواست برداشت همه کلیک های ارسالی شما
+          توسط تیم ما به دقت مورد بررسی قرار خواهد گرفت و در صورت دیده شدن
+          هرگونه تخلف، طبق
+          <a class="link" target="_blank" href="user/rules"> قوانین </a> سایت
+          حساب کاربری شما فورا و بدون اطلاع قبلی مسدود خواهد شد.
+        </div>
+      </div>
+    </div>
+
+    <div class="table-container col-12">
+      <table mat-table [dataSource]="withdraws" class="mat-elevation-z8">
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef>#</th>
+          <td mat-cell *matCellDef="let element; let index = index">
+            {{ index + 1 }}
+          </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="createdAt">
+          <th mat-header-cell *matHeaderCellDef>تاریخ</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.createdAt | jalaali: "YY/MM/DD" }}
+          </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>وضعیت</th>
+          <td mat-cell *matCellDef="let element" [ngSwitch]="element.status">
+            <span class="waiting" *ngSwitchCase="'waiting'"> در انتطار </span>
+            <span class="success" *ngSwitchCase="'success'"> موفق </span>
+            <span class="cancel" *ngSwitchCase="'cancel'"> لغو شده </span>
+          </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef>میزان برداشت</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.amount | price }} تومان
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="withdrawType">
+          <th mat-header-cell *matHeaderCellDef>روش برداشت</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.type }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="trackNumber">
+          <th mat-header-cell *matHeaderCellDef>شماره پیگیری</th>
+          <td mat-cell *matCellDef="let element" [ngSwitch]="element.status">
+            <span *ngSwitchCase="'success'"> {{ element.trackNumber }} </span>
+            <span *ngSwitchCase="'waiting'"> در حال بررسی </span>
+            <span *ngSwitchCase="'cancel'"> مبلغ برگردانده شده </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="accountAddress">
+          <th mat-header-cell *matHeaderCellDef>حساب برداشت</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.user.accountAddress }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <div class="pagination-container justify-content-left mat-elevation-z1">
+        <div class="pagination">
+          <span class="inf">
+            {{ skip + 1 }} تا
+            {{ skip + limit < count ? skip + limit : count }} از
+            {{ count }}
+          </span>
+          <button
+            (click)="prevPage()"
+            [disabled]="skip === 0"
+            mat-icon-button
+            matTooltip="صفحه قبل"
+          >
+            <mat-icon>navigate_next</mat-icon>
+          </button>
+
+          <button
+            (click)="nextPage()"
+            [disabled]="limit + skip >= count"
+            mat-icon-button
+            matTooltip="صفحه بعد"
+          >
+            <mat-icon>navigate_before</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="message">
+      <ul>
+        <li>در انتظار: درخواست شما در انتظار بررسی توسط تیم ما می باشد.</li>
+
+        <li>موفق: مبلغ با موفقیت به حساب تعیین شده توسط شما ارسال شده است.</li>
+
+        <li>
+          لغو شده: مبلغ پرداخت به دلایل فنی و یا تکمیل نبودن اطلاعات حساب کاربر
+          به پنل کاربر برگشت خورده.
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

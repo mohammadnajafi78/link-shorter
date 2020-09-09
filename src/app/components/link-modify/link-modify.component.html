@@ -1,0 +1,39 @@
+<h3 mat-dialog-title class="title">
+  ایجاد لینک کوتاه
+</h3>
+<div>
+  <mat-form-field style="width: 100%;" appearance="outline">
+    <mat-label> لینک</mat-label>
+    <input
+      (keydown.enter)="create()"
+      style="text-align: left;direction: ltr"
+      [(ngModel)]="mainLink"
+      [formControl]="linkController"
+      type="text"
+      matInput
+    />
+    <mat-error *ngIf="linkController.hasError('required')">
+      لینک الزامی است
+    </mat-error>
+    <mat-error *ngIf="linkController.hasError('pattern')">
+      لینک معتبر وارد کنید
+    </mat-error>
+  </mat-form-field>
+  <mat-slide-toggle
+    [(ngModel)]="showAds"> {{showAds ? 'درامدزا (غیر مستقیم)' : 'بدون درامد (مستقیم)'}} </mat-slide-toggle>
+  <div class="shortlink" *ngIf="link.shortLink">
+    <button mat-button>
+      <mat-icon (click)="openSnackbar()" [cdkCopyToClipboard]="url + '/' + link.shortLink "> file_copy</mat-icon>
+      کپی
+    </button>
+    <span class="link">
+      {{url + '/' + link.shortLink }}
+    </span>
+  </div>
+</div>
+<div mat-dialog-actions dir="ltr">
+  <button (click)="create()" mat-raised-button color="primary">
+    ایجاد لینک کوتاه
+  </button>
+
+</div>

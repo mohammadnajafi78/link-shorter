@@ -1,0 +1,178 @@
+<mat-toolbar color="primary">
+  <span> تیکت ها </span>
+</mat-toolbar>
+<mat-progress-bar
+  *ngIf="loading"
+  color="accent"
+  mode="indeterminate"
+></mat-progress-bar>
+
+<div class="table-container">
+  <mat-card class="search-card">
+    <div class="row space-between">
+      <div class="col-4">
+        <mat-form-field style="width: 100%;">
+          <mat-label> جست و جو </mat-label>
+          <input
+            [formControl]="searchControl"
+            type="text"
+            placeholder="جست و جو کنید"
+            matInput
+          />
+          <mat-hint> جست و جو در موضوع </mat-hint>
+          <mat-icon matSuffix> search </mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="col-3">
+        <mat-form-field>
+          <mat-select [(ngModel)]="read" (selectionChange)="getTicketList()">
+            <mat-option [value]="false">
+              تیکت های خوانده نشده
+            </mat-option>
+            <mat-option [value]="true">
+              تیکت های خوانده شده
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-card>
+  <div
+    class="not-find"
+    *ngIf="tickets.length === 0 && tickets !== null && !loading"
+  >
+    تیکتی یافت نشد!
+  </div>
+  <div *ngIf="tickets.length > 0 && tickets !== null && !loading">
+    <table mat-table [dataSource]="tickets" class="table mat-elevation-z8">
+      <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let element; let index = index">
+          {{ index + 1 }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef>شماره تلفن</th>
+        <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>نام</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.name }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="family">
+        <th mat-header-cell *matHeaderCellDef>نام خانوادگی</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.family }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="subject">
+        <th mat-header-cell *matHeaderCellDef>موضوع</th>
+        <td mat-cell *matCellDef="let element">{{ element.subject }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>تاریخ ارسال</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.createdAt | jalaali: "dddd  jD jMMMM jYYYY" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="updatedAt">
+        <th mat-header-cell *matHeaderCellDef>تاریخ خوانده شدن</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [class]="element.updatedAt === element.createdAt ? 'dont-read' : ''"
+        >
+          {{
+            element.updatedAt === element.createdAt
+              ? "خوانده نشده"
+              : (element.createdAt | jalaali: "dddd  jD jMMMM jYYYY")
+          }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>عملیات</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            style="color: teal;"
+            mat-icon-button
+            [routerLink]="['/admin/dashboard/ticket', element._id]"
+          >
+            <mat-icon>remove_red_eye</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <div class="pagination-container justify-content-left mat-elevation-z1">
+      <div class="pagination">
+        <span class="inf">
+          تعداد نمایش در هر صفحه
+        </span>
+        <mat-form-field>
+          <mat-select [(ngModel)]="limit" (selectionChange)="selectionChange()">
+            <mat-option [value]="10">
+              10
+            </mat-option>
+            <mat-option [value]="20">
+              20
+            </mat-option>
+            <mat-option [value]="50">
+              50
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <span class="inf">
+          {{ skip + 1 }} تا {{ skip + limit < count ? skip + limit : count }} از
+          {{ count }}
+        </span>
+
+        <button
+          (click)="firstPage()"
+          [disabled]="skip === 0"
+          mat-icon-button
+          matTooltip="صفحه اول"
+        >
+          <mat-icon>last_page</mat-icon>
+        </button>
+
+        <button
+          (click)="prevPage()"
+          [disabled]="skip === 0"
+          mat-icon-button
+          matTooltip="صفحه قبل"
+        >
+          <mat-icon>navigate_next</mat-icon>
+        </button>
+
+        <button
+          (click)="nextPage()"
+          [disabled]="limit + skip >= count"
+          mat-icon-button
+          matTooltip="صفحه بعد"
+        >
+          <mat-icon>navigate_before</mat-icon>
+        </button>
+        <button
+          (click)="lastPage()"
+          [disabled]="limit + skip >= count"
+          mat-icon-button
+          matTooltip="صفحه آخر"
+        >
+          <mat-icon>first_page</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

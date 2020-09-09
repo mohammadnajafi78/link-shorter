@@ -1,0 +1,60 @@
+@import "../../theme.scss";
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 250px;
+}
+
+.sidenav {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+.menu-header {
+  background-color: #1565c0;
+  color: white;
+}
+
+  mat-icon {
+    margin-left: 15px;
+  }
+//}
+
+.card-header {
+  display: flex;
+
+  .btn-header {
+    background: #ffffff;
+    color: #000;
+    padding: 0px 30px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-left: 16px;
+    outline: none;
+    border: none;
+  }
+  button {
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+  }
+  .title {
+    margin: 8px 0px;
+  }
+  .price {
+    font-size: 10px;
+    margin: 8px 0px;
+  }
+}

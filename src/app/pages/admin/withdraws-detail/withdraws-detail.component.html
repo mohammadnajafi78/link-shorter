@@ -1,0 +1,86 @@
+<mat-toolbar color="primary">
+  اطلاعات برداشت
+</mat-toolbar>
+<div class="card-container"  >
+  <mat-card class="col-11">
+    <div class="event-header">
+      <div class="row">
+        <div class="col-12" style="display: flex;">
+          <div
+            style="
+              flex-grow: 1;
+              text-align: right;
+              margin-top: 9px;
+              margin-bottom: 36px;
+              font-size: 20px;
+              font-weight: bold;
+            "
+          >
+            اطلاعات برداشت {{ withdraws.user.name }}
+            {{ withdraws.user.family }} با شماره {{ withdraws.user.phone }}
+          </div>
+          <div
+            style="
+              text-align: right;
+              margin-top: 9px;
+              margin-bottom: 36px;
+              margin-left: 24px;
+              font-size: 16px;
+            "
+          >
+            تاریخ ثبت : {{ withdraws.createdAt | jalaali }}
+          </div>
+        </div>
+        <div class="col-4 item">
+          <span class="title" > نوع برداشت : </span>
+          <span>
+            {{ withdraws.type }}
+          </span>
+        </div>
+        <div class="col-4 item">
+          <span class="title" > حساب برداشت : </span>
+          <span>
+            {{ withdraws.user.accountAddress }}
+          </span>
+        </div>
+        <div class="col-4 item">
+          <span class="title">
+                      مقدار برداشت :
+          </span>
+          {{ withdraws.amount | price }}
+        </div>
+        <div class="col-4 item">
+          <span class="title">
+                      کشور :
+          </span>
+          {{ withdraws.user.country }}
+        </div>
+        <div class="col-4 item">
+          <span class="title">
+                      استان :
+          </span>
+          {{ withdraws.user.state }}
+        </div>
+        <div class="col-4 item">
+          <span class="title">
+                      شهر :
+          </span>
+          {{ withdraws.user.city }}
+        </div>
+        <div class="item col-4">
+          <span class="title" > وضعیت برداشت : </span>
+          <span [ngSwitch]="withdraws.status">
+            <span *ngSwitchCase="'waiting'" class="waiting"> در انتظار </span>
+            <span *ngSwitchCase="'cancel'" class="cancel"> لغو شده </span>
+            <span *ngSwitchCase="'success'" class="success"> موفق </span>
+          </span>
+        </div>
+        <div class="col-12 item address">
+            <span class="title">
+              آدرس :
+            </span>
+           {{ withdraws.user.address }}</div>
+      </div>
+    </div>
+  </mat-card>
+</div>

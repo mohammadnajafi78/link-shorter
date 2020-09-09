@@ -1,0 +1,150 @@
+<div class="shortlink" *ngIf="link.showAds">
+  <app-client-header></app-client-header>
+  <div class="main" (click)="popUp()">
+    <mat-card
+      class="col-md-8 col-12"
+      id="pos-article-display-10220"
+      *ngIf="ads.horizontals.length > 0"
+    >
+      <div class="header">
+        <div class="col-md-2 col-12">
+          <a [href]="ads.verticals[0].link" target="_blank">
+            <img
+              class="vertical"
+              [src]="BASE_URL + '/api/' + ads.verticals[0].image"
+            />
+          </a>
+        </div>
+
+        <div class="col-md-8 col-12">
+          <a [href]="ads.horizontals[0].link" target="_blank">
+            <img
+              class="horizontal"
+              [src]="BASE_URL + '/api/' + ads.horizontals[0].image"
+            />
+          </a>
+        </div>
+
+        <div class="col-md-2 col-12">
+          <a [href]="ads.verticals[1].link" target="_blank">
+            <img
+              class="vertical"
+              [src]="BASE_URL + '/api/' + ads.verticals[1].image"
+            />
+          </a>
+        </div>
+      </div>
+
+      <div class="header">
+        <div class="col-md-2 col-12">
+          <a [href]="ads.verticals[2].link">
+            <img
+              class="vertical"
+              [src]="BASE_URL + '/api/' + ads.verticals[2].image"
+              alt=""
+            />
+          </a>
+        </div>
+        <div class="center col-md-8 col-12">
+          <div *ngIf="!showLink" class="recaptcha">
+            <button
+              (click)="captchaRef.execute()"
+              mat-raised-button
+              color="primary"
+            >
+              من ربات نیستم
+            </button>
+          </div>
+          <div *ngIf="showLink" style="text-align: center">
+            <circle-progress
+              *ngIf="timeLeft > 0"
+              [percent]="100"
+              [radius]="40"
+              [outerStrokeWidth]="5"
+              [innerStrokeWidth]="0"
+              [outerStrokeColor]="'#1565c0'"
+              [animation]="true"
+              [animationDuration]="7000"
+              [showSubtitle]="false"
+              [units]="'لطفا کمی صبر کنید'"
+              [showTitle]="false"
+              [unitsFontSize]="8"
+              [renderOnClick]="false"
+            ></circle-progress>
+          </div>
+          <div
+            class="link"
+            *ngIf="link.mainLink && timeLeft === 0"
+            [ngSwitch]="format"
+          >
+            <div class="video" *ngSwitchCase="'video'">
+              <div class="video-container col-12">
+                <app-vjs [src]="link.mainLink"></app-vjs>
+              </div>
+              <div class="download">
+                <a
+                  download
+                  [href]="link.mainLink"
+                  mat-raised-button
+                  color="primary"
+                >
+                  دانلود فیلم
+                </a>
+              </div>
+            </div>
+            <div
+              *ngSwitchCase="'file'"
+              style="text-align: center; margin: 20px 0px"
+            >
+              <a
+                download
+                id="download_link"
+                [href]="link.mainLink"
+                mat-raised-button
+                color="primary"
+              >
+                دریافت فایل
+              </a>
+            </div>
+            <div *ngSwitchCase="'default'" style="text-align: center">
+              <a
+                mat-raised-button
+                style="margin: 20px 0px"
+                color="primary"
+                target="_blank"
+                (click)="goToLink(link.mainLink)"
+              >
+                برو به لینک
+              </a>
+            </div>
+          </div>
+          <div>
+            <a [href]="ads.horizontals[1].link">
+              <img
+                class="horizontal"
+                [src]="BASE_URL + '/api/' + ads.horizontals[1].image"
+              />
+            </a>
+          </div>
+        </div>
+        <div class="col-md-2 col-12">
+          <a [href]="ads.verticals[1].link" target="_blank">
+            <img
+              class="vertical"
+              [src]="BASE_URL + '/api/' + ads.verticals[3].image"
+              alt=""
+            />
+          </a>
+        </div>
+      </div>
+      <re-captcha
+        #captchaRef="reCaptcha"
+        size="invisible"
+        (resolved)="resolved($event, link._id)"
+      ></re-captcha>
+    </mat-card>
+  </div>
+  <app-client-footer
+    *ngIf="link.showAds && ads.horizontals.length > 0"
+  ></app-client-footer>
+</div>

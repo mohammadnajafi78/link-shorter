@@ -1,0 +1,140 @@
+<mat-progress-bar
+  *ngIf="loading"
+  mode="indeterminate"
+  color="accent"
+></mat-progress-bar>
+<div class="main">
+  <mat-card class="search-card">
+    <div class="row space-between">
+      <div class="col-md-4 col-xs-7 col-12">
+        <mat-form-field style="width: 100%">
+          <mat-label> جست و جو</mat-label>
+          <input
+            [formControl]="searchControl"
+            type="text"
+            placeholder="جست و جو کنید"
+            matInput
+          />
+          <mat-hint> لینک اصلی را جست و جو کنید</mat-hint>
+          <mat-icon matSuffix> search</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3 col-xs-4 col-6">
+        <mat-form-field>
+          <mat-select [(ngModel)]="status" (selectionChange)="resetPage()">
+            <mat-option [value]="'active'"> لینک های فعال </mat-option>
+            <mat-option [value]="'inactive'"> لینک های غیر فعال </mat-option>
+            <mat-option [value]="'warning'"> لینک های دارای تخلف </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-card>
+
+  <div
+    style="text-align: center; margin-top: 30px"
+    *ngIf="links.length === 0 && links !== null && !loading"
+  >
+    لینکی وجود ندارد !
+  </div>
+
+  <mat-card class="col-12 info" *ngFor="let link of links">
+    <div class="link-container row">
+      <div class="col-md-4 col-12 row">
+        <div class="icon">
+          <img
+            style="width: 70px; height: 70px"
+            alt=""
+            src="../../../assets/link.svg"
+          />
+        </div>
+        <div class="des">
+          <h3>
+            <a [routerLink]="'/' + link.shortLink" target="_blank">
+              {{ link.shortLink }}
+            </a>
+          </h3>
+
+          <div class="details">
+            <div class="chart">
+              <a
+                [routerLink]="'/member/dashboard/link/' + link._id"
+                style="display: flex; align-items: center"
+              >
+                <mat-icon matTooltip="آمار لینک"> show_chart</mat-icon>
+                آمار
+              </a>
+            </div>
+            <div>
+              <mat-icon>date_range</mat-icon>
+              {{ link.createdAt | jalaali: "YY/MM/DD" }}
+            </div>
+            <div class="detail-link">
+              <a (click)="goToLink(link.mainLink)" target="_blank">
+                {{ link.mainLink | link }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="toggle col-md-4 col-12">
+        <div>
+          <mat-slide-toggle
+            [(ngModel)]="link.showAds"
+            (change)="toggleChange(link._id, link.showAds)"
+          >
+            نوع لینک : {{ link.showAds ? "درامد زا" : "بدون درامد" }}
+          </mat-slide-toggle>
+        </div>
+      </div>
+      <div class="col-md-3 col-12 btn-group">
+        <button
+          [cdkCopyToClipboard]="url + '/' + link.shortLink"
+          (click)="openCopy()"
+          mat-raised-button
+          color="primary"
+        >
+          کپی کردن
+          <mat-icon> file_copy</mat-icon>
+        </button>
+
+        <button
+          (click)="openQuestionDialog(link._id, 'inactive')"
+          *ngIf="link.status === 'active'"
+          mat-raised-button
+          color="warn"
+        >
+          غیر فعال کردن
+          <mat-icon>visibility_off</mat-icon>
+        </button>
+        <button
+          (click)="openQuestionDialog(link._id, 'active')"
+          *ngIf="link.status === 'inactive'"
+          mat-raised-button
+          color="warn"
+        >
+          فعال کردن
+          <mat-icon>remove_red_eye</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card>
+  <div *ngIf="!loading" class="pagination">
+    <div>
+      <button
+        *ngIf="count - skip > limit"
+        (click)="nextPage()"
+        mat-raised-button
+      >
+        <mat-icon>arrow_forward</mat-icon>
+        صفحه بعد
+      </button>
+    </div>
+    <div>
+      <button *ngIf="skip > 0" (click)="prevPage()" mat-raised-button>
+        صفحه قبل
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<mat-toolbar color="primary">
+  تیکت {{ ticket.name }} {{ ticket.family }}
+</mat-toolbar>
+
+<div class="card-container">
+  <mat-card class="col-10">
+    <div class="date-header">
+      <div>
+        <div>
+          <span class="title"> ایمیل : </span>
+          <span> {{ ticket.email }} </span>
+        </div>
+        <div class="detail">
+          <span class="title"> نام و نام خانوادگی : </span>
+          <span> {{ ticket.name }} {{ ticket.family }} </span>
+        </div>
+      </div>
+      <div>
+        <div>
+          <span class="title"> تاریخ ارسال : </span>
+          <span>{{ ticket.createdAt | jalaali }}</span>
+        </div>
+        <div class="detail">
+          <span class="title">شماره تلفن : </span>
+          <span> {{ ticket.phone }} </span>
+        </div>
+      </div>
+    </div>
+
+    <mat-card class="content">
+      <div class="subject">
+        {{ ticket.subject }}
+      </div>
+      {{ ticket.content }}
+    </mat-card>
+
+    <mat-card
+      *ngFor="let message of ticket.messages"
+      [class]="message.from === 'admin' ? ' messages admin ' : 'messages'"
+    >
+      <b *ngIf="message.from === 'admin'"> ادمین : </b>
+      {{ message.message }}
+    </mat-card>
+    <mat-form-field class="col-12" appearance="outline">
+      <mat-label> متن پیام</mat-label>
+      <textarea
+        [formControl]="textController"
+        [(ngModel)]="message.message"
+        matInput
+        rows="4"
+      ></textarea>
+      <mat-error *ngIf="textController.hasError('required')">
+        متن پیام الزامی است
+      </mat-error>
+    </mat-form-field>
+    <div dir="ltr">
+      <button
+        (click)="responseTicket()"
+        style="margin-right: 20px"
+        mat-raised-button
+        color="primary"
+      >
+        ارسال جواب
+      </button>
+
+      <button
+        (click)="readTicket()"
+        *ngIf="!ticket.read"
+        mat-raised-button
+        style="background-color: #079992; color: #ffffff"
+      >
+        <mat-icon>check</mat-icon>
+        خوانده شد
+      </button>
+    </div>
+  </mat-card>
+</div>

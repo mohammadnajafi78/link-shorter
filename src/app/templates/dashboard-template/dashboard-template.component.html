@@ -1,0 +1,77 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <mat-toolbar class="menu-header"> پنل کاربری</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item class="menu-item" (click)="openDialog()" >
+        <mat-icon>
+          add_circle_outline
+        </mat-icon>
+        ایجاد لینک جدید
+      </a>
+      <a
+        mat-list-item
+        class="menu-item"
+        *ngFor="let route of routes"
+        [routerLink]="route.path"
+        (click)="closeNav()"
+      >
+        <mat-icon>
+          {{ route.icon }}
+        </mat-icon>
+        {{ route.title }}
+      </a>
+      <a mat-list-item class="menu-item" (click)="signOut()">
+        <mat-icon>power_settings_new</mat-icon>
+        خروج
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar class="mat-toolbar" color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <div class="card-header">
+        <button
+          matTooltip="درامد شما هر دو ساعت یکبار به صورت خودکار محاسبه میشود"
+          class="btn-header"
+        >
+          <div class="title">
+            موجودی در دسترس
+          </div>
+          <div class="price">{{ user.salary | price }} تومان</div>
+        </button>
+      </div>
+      <div>
+        <button mat-button [matMenuTriggerFor]="userMenu">
+          <mat-icon>person</mat-icon>
+        </button>
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item routerLink="/member/dashboard/profile">
+            <mat-icon> person</mat-icon>
+            پروفایل
+          </button>
+          <button (click)="signOut()" mat-menu-item>
+            <mat-icon> power_settings_new</mat-icon>
+            خروج
+          </button>
+        </mat-menu>
+      </div>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,26 @@
+.title {
+  padding: 20px 0px;
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: 24px;
+  span {
+    border-bottom: 3px solid #2985fd;
+  }
+}
+.main {
+  margin: 30px;
+}
+@media only screen and (max-width: 768px) {
+  .main {
+    margin: 10px;
+  }
+}
+mat-hint {
+  font-size: 14px;
+}
+.type {
+  margin: 20px 0px;
+}
+.hint {
+  font-size: 14px;
+}

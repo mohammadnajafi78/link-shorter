@@ -1,0 +1,76 @@
+<h3 mat-dialog-title class="title" *ngIf="data.state === 'create'">
+  ساخت روش جدید
+</h3>
+<h3 mat-dialog-title class="title" *ngIf="data.state === 'edit'">
+  ویرایش روش
+</h3>
+<mat-dialog-content mat-dialog-content>
+  <form [formGroup]="formControl">
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>
+        نام روش جدید
+      </mat-label>
+      <input
+        matInput
+        [(ngModel)]="withdrawsMehods.title"
+        type="text"
+        formControlName="title"
+      />
+      <mat-error *ngIf="inputs.title.errors">
+        نام الزامی است
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>
+        توضیح روش
+      </mat-label>
+      <textarea
+        formControlName="description"
+        [(ngModel)]="withdrawsMehods.description"
+        matInput
+        rows="4"
+      ></textarea>
+      <mat-error *ngIf="inputs.description.errors">
+        توضیحات الزامی است
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>
+        حداقل برداشت برای این روش
+      </mat-label>
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="withdrawsMehods.min"
+        formControlName="min"
+      />
+      <mat-error *ngIf="inputs.min.errors">
+        توضیحات الزامی است
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-slide-toggle [(ngModel)]="withdrawsMehods.active">
+  وضعیت:
+  {{ withdrawsMehods.active ? "فعال" : "غیر فعال" }}
+</mat-slide-toggle>
+<div mat-dialog-actions dir="ltr">
+  <button
+    (click)="onYesClick()"
+    color="primary"
+    *ngIf="data.state === 'create'"
+    mat-raised-button
+  >
+    ایجاد
+  </button>
+  <button
+    (click)="onYesClick()"
+    color="primary"
+    *ngIf="data.state === 'edit'"
+    mat-raised-button
+  >
+    ویرایش
+  </button>
+  <button mat-raised-button (click)="onNoClick()">لغو</button>
+</div>

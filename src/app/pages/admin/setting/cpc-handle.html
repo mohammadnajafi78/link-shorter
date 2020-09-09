@@ -1,0 +1,62 @@
+<h3 mat-dialog-title class="title" *ngIf="data.state === 'iran'">
+  تعرفه کلیک داخلی
+</h3>
+<h3 mat-dialog-title class="title" *ngIf="data.state === 'foreign'">
+  تعرفه کلیک خارجی
+</h3>
+<mat-dialog-content mat-dialog-content>
+  <mat-form-field style="width: 100%;">
+    <mat-label>
+      تعرفه اولین کلیک
+    </mat-label>
+    <input
+      [formControl]="firstCPC"
+      [(ngModel)]="data.cpc.first"
+      matInput
+      type="text"
+    />
+    <mat-error *ngIf="firstCPC.hasError('required')">
+      مقدا الزامی است
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field style="width: 100%;">
+    <mat-label>
+      تعرفه دومین کلیک
+    </mat-label>
+    <input
+      [formControl]="secondCPC"
+      [(ngModel)]="data.cpc.second"
+      matInput
+      type="text"
+    />
+    <mat-error *ngIf="secondCPC.hasError('required')">
+      مقدا الزامی است
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field style="width: 100%;">
+    <mat-label>
+      تعرفه سومین کلیک
+    </mat-label>
+    <input
+      [formControl]="thirdCPC"
+      [(ngModel)]="data.cpc.third"
+      matInput
+      type="text"
+    />
+    <mat-error *ngIf="thirdCPC.hasError('required')">
+      مقدا الزامی است
+    </mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+
+<div mat-dialog-actions dir="ltr">
+  <button
+    style="margin-right: 10px;"
+    mat-raised-button
+    (click)="onYesClick()"
+    color="primary"
+  >
+    ویرایش
+  </button>
+  <button mat-raised-button (click)="onNoClick()">لغو</button>
+</div>

@@ -1,0 +1,40 @@
+<div class="card-container">
+  <mat-card class="col-10">
+    <div>
+      <span class="title"> تاریخ ارسال : </span>
+      <span>{{ ticket.createdAt | jalaali }}</span>
+    </div>
+
+    <mat-card class="content">
+      <div class="subject">
+        {{ ticket.subject }}
+      </div>
+      {{ ticket.content }}
+    </mat-card>
+
+    <mat-card
+      *ngFor="let message of ticket.messages"
+      [class]="message.from === 'admin' ? ' messages admin ' : 'messages'"
+    >
+      <b *ngIf="message.from === 'admin'"> ادمین : </b>
+      {{ message.message }}
+    </mat-card>
+    <mat-form-field class="col-12" appearance="outline">
+      <mat-label> متن پیام</mat-label>
+      <textarea
+        [formControl]="textController"
+        [(ngModel)]="message.message"
+        matInput
+        rows="4"
+      ></textarea>
+      <mat-error *ngIf="textController.hasError('required')">
+        متن پیام الزامی است
+      </mat-error>
+    </mat-form-field>
+    <div dir="ltr">
+      <button (click)="responseTicket()" mat-raised-button color="primary">
+        ارسال جواب
+      </button>
+    </div>
+  </mat-card>
+</div>

@@ -1,0 +1,101 @@
+<app-client-header></app-client-header>
+<div class="home">
+
+  <div class="home-header row" style="height: 70vh">
+    <div class="col-12">
+      <div class="header-text">
+        <span class="right2"></span>
+        <span class="right">  </span>
+        <span class="title">
+          با کوتاه کردن لینک درامد ارزی کسب کن
+        </span>
+        <span class="left">  </span>
+        <span class="left2">  </span>
+      </div>
+      <div class="form">
+        <div class=" header-search-container col-md-7 col-11">
+
+          <input
+            [(ngModel)]="link.mainLink"
+            [formControl]="linkControl"
+            (keydown.enter)="captchaRef.execute()"
+            style="text-align: left;direction: ltr"
+            type="text"
+            placeholder="لینکت رو  با یک کلیک کوتاه کن"
+          />
+          <button (click)="captchaRef.execute(); ">
+            <mat-icon color="primary">send</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div *ngIf="newLink.shortLink" class="newlink">
+        <mat-card class="col-md-3 col-10 newLink-card">
+          <mat-icon
+            [cdkCopyToClipboard]="url+ '/' +newLink.shortLink"
+            (click)="openCopySnack()"
+          >
+            file_copy
+          </mat-icon>
+          <span>
+            {{url + '/' + newLink.shortLink }}
+          </span>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <re-captcha
+    #captchaRef="reCaptcha"
+    size="invisible"
+    (resolved)="createLink($event)"
+  ></re-captcha>
+  <div class="header-body">
+    فقط کافیه سه مرحله زیر رو انجام بدی
+  </div>
+  <div class="level-container">
+    <div class="levels row col-10">
+      <div class="col-md-3 col-10">
+        <div style="text-align: center;">
+          <img
+            src="../../../../assets/login.svg"
+            style="width: 100px; height: 100px;"
+          />
+        </div>
+        <h3>
+          1- ثبت نام و ورود به حساب کاربری
+        </h3>
+        <div class="des">
+          ابتدا ثبت نام کنید تا بتوانید با کوتاه کردن لینک درامد کسب کنید
+        </div>
+      </div>
+      <div class="col-md-3 col-10">
+        <div style="text-align: center;">
+          <img
+            src="../../../../assets/share.svg"
+            style="width: 100px; height: 100px;"
+          />
+        </div>
+        <h3>
+          2- کوتاه کردن لینکها
+        </h3>
+        <div class="des">
+          لینک های خود در گروه ها، سایت ها یا کانال ها به اشتراک بگذاید
+        </div>
+      </div>
+      <div class="col-md-3 col-10">
+        <div style="text-align: center;">
+          <img
+            src="../../../../assets/bitcoin.svg"
+            style="width: 100px; height: 100px;"
+          />
+        </div>
+        <h3>
+          3- نشر لینک و کسب دارمد
+        </h3>
+        <div class="des">
+          به ازای هرکسی که که روی لینک شما کلید میکند درامد کسب کنید
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-client-footer></app-client-footer>

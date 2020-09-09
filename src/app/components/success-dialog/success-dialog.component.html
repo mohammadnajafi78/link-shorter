@@ -1,0 +1,23 @@
+<h3 mat-dialog-title class="title">
+  برای تائید برداشت کد رهگیری برداشت را وارد کنید
+</h3>
+<div mat-dialog-content>
+  <mat-form-field style="width: 100%;" appearance="outline">
+    <mat-label> کد رهگیری </mat-label>
+    <input
+      [(ngModel)]="trackNumber"
+      [formControl]="trackNumberController"
+      type="number"
+      matInput
+    />
+    <mat-error *ngIf="trackNumberController.hasError('required')">
+      کد رهگیری الزامی است
+    </mat-error>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()">لغو</button>
+  <button mat-raised-button color="primary" (click)="accept()">
+    ثبت کد رهگیری
+  </button>
+</div>
