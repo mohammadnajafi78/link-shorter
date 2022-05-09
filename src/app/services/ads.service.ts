@@ -1,27 +1,28 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {AdsDto, ShowAdsDto} from '../models/ads.dto';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { AdsDto, ShowAdsDto } from "../models/ads.dto";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AdsService {
-  base = '/api/ads';
+  base = "/api/ads";
 
-  constructor(private readonly  http: HttpClient) {
-  }
+  constructor(private readonly http: HttpClient) {}
 
   create(ads: AdsDto) {
     return this.http.post<{ ads: AdsDto }>(this.base, ads);
   }
 
   getAll(params: {
-    search?: string,
-    type?: string,
-    skip?: string,
-    limit?: string
+    search?: string;
+    type?: string;
+    skip?: string;
+    limit?: string;
   }) {
-    return this.http.get<{ ads: AdsDto[], count: number }>(`${this.base}/all`, {params});
+    return this.http.get<{ ads: AdsDto[]; count: number }>(`${this.base}/all`, {
+      params,
+    });
   }
 
   showAds() {
@@ -36,8 +37,7 @@ export class AdsService {
     return this.http.delete<{ ads: AdsDto }>(`${this.base}/${id}`);
   }
 
-  showVideoAds() {
-    return this.http.get<{ ads: AdsDto[] }>(`${this.base}/video`);
+  showVideoAds(params: { type: string }) {
+    return this.http.get<{ ads: AdsDto[] }>(`${this.base}/video`, { params });
   }
-
 }

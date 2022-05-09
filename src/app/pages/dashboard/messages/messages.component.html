@@ -67,30 +67,30 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-  </div>
-  <div class="pagination-container justify-content-left mat-elevation-z1">
-    <div class="pagination">
-      <span class="inf">
-        {{ skip + 1 }} تا {{ skip + limit < count ? skip + limit : count }} از
-        {{ count }}
-      </span>
-      <button
-        (click)="prevPage()"
-        [disabled]="skip === 0"
-        mat-icon-button
-        matTooltip="صفحه قبل"
-      >
-        <mat-icon>navigate_next</mat-icon>
-      </button>
+    <div class="pagination-container justify-content-left mat-elevation-z1">
+      <div class="pagination">
+        <span class="inf">
+          {{ skip + 1 }} تا {{ skip + limit < count ? skip + limit : count }} از
+          {{ count }}
+        </span>
+        <button
+          (click)="prevPage()"
+          [disabled]="skip === 0"
+          mat-icon-button
+          matTooltip="صفحه قبل"
+        >
+          <mat-icon>navigate_next</mat-icon>
+        </button>
 
-      <button
-        (click)="nextPage()"
-        [disabled]="limit + skip >= count"
-        mat-icon-button
-        matTooltip="صفحه بعد"
-      >
-        <mat-icon>navigate_before</mat-icon>
-      </button>
+        <button
+          (click)="nextPage()"
+          [disabled]="limit + skip >= count"
+          mat-icon-button
+          matTooltip="صفحه بعد"
+        >
+          <mat-icon>navigate_before</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
 </div>

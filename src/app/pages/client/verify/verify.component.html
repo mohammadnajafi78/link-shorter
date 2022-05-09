@@ -1,0 +1,63 @@
+<div class="verify-component">
+  <mat-progress-bar
+    *ngIf="loading"
+    color="accent"
+    mode="query"
+  ></mat-progress-bar>
+  <div class="main">
+    <div class="verify-container">
+      <!--  برای شماره تلفن  -->
+      <mat-card
+        *ngIf="showForm"
+        class="mat-elevation-z2 col-md-4 col-sm-8 col-12 card"
+      >
+        <div class="title">
+          <mat-card-title> رمز عبور جدید </mat-card-title>
+        </div>
+
+        <div class="form-container">
+          <mat-form-field class="col-sm-10 col-11" appearance="outline">
+            <mat-label> رمز عبور </mat-label>
+            <input
+              [(ngModel)]="password"
+              [formControl]="passwordControl"
+              matInput
+              type="password"
+            />
+            <mat-icon matSuffix> lock </mat-icon>
+            <mat-error *ngIf="passwordControl.hasError('required')">
+              رمز عبور الزامی است
+            </mat-error>
+            <mat-error *ngIf="passwordControl.hasError('minlength')">
+              رمز عبور باید حداقل 5 کاراکتر باشد
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-sm-10 col-11" appearance="outline">
+            <mat-label> تکرار رمز عبور </mat-label>
+            <input
+              [formControl]="confirmPasswordControl"
+              matInput
+              [(ngModel)]="confirnPassword"
+              type="password"
+            />
+            <mat-icon matSuffix> lock </mat-icon>
+            <mat-error *ngIf="confirmPasswordControl.invalid">
+              تکرار رمز عبور الزامی است
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="button-container">
+          <button
+            (click)="changePassword()"
+            class="btn"
+            mat-raised-button
+            color="primary"
+          >
+            ثبت
+          </button>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

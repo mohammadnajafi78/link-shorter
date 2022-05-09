@@ -1,3 +1,4 @@
+// import fetchProgress from "fetch-progress";
 import { Component, OnInit, Renderer2, Inject } from "@angular/core";
 import { LinkService } from "src/app/services/link.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -27,8 +28,6 @@ export class ShortLinkComponent implements OnInit {
   format: string;
   // تایمر برای انتظار
   timeLeft = 7;
-  // شماره نمایش پاپ آپ
-  popupNumber: number;
   // برای تایمر
   interval;
   // آیا پاپ آپ باز شود؟
@@ -44,7 +43,7 @@ export class ShortLinkComponent implements OnInit {
     ".doc",
     ".docx",
     ".rtf",
-    " .msg",
+    ".msg",
     ".pdf",
     ".txt",
     ".arc",
@@ -57,6 +56,10 @@ export class ShortLinkComponent implements OnInit {
     ".z",
     ".zip",
   ];
+  // نمایش دادن میزان دانلود
+  showProgess: boolean;
+  // خطای دانلود
+  advandeError: boolean;
 
   constructor(
     private readonly linkService: LinkService,
@@ -75,13 +78,13 @@ export class ShortLinkComponent implements OnInit {
     });
     this.ads = { horizontals: [], verticals: [], popup: [] };
     this.openPopup = false;
-    this.popupNumber = 0;
+    this.showProgess = false;
+    this.advandeError = false;
   }
 
   ngOnInit(): void {
     // دریافت تبلیغات
     this.getAds();
-
     let script = this._renderer2.createElement("script");
     script.type = `text/javascript`;
     script.text = `
@@ -100,20 +103,17 @@ export class ShortLinkComponent implements OnInit {
 
   popUp() {
     // آیا پاپ آپ باز شود؟
-    if (!this.openPopup) {
+    if (!this.openPopup && this.link.popUp) {
       // باز کردن پاپ آپ
       const newWindow = window.open(
-        this.ads.popup[this.popupNumber].link,
+        this.ads.popup[0].link,
         "bottom",
         "height=600,width=800"
       );
       if (window.focus) {
         newWindow.focus();
       }
-      // پاپ آپ نمایش داده شد
       this.openPopup = true;
-      // پاپ آپ بعدی نمایش داده شود
-      this.popupNumber = 1;
     }
   }
 
@@ -168,6 +168,25 @@ export class ShortLinkComponent implements OnInit {
     }
   }
 
+  advanceDownload(link: string) {
+    this.showProgess = true;
+    fetch(link)
+      .then((resp) => resp.blob())
+      .then((blob) => {
+        const objectURL = URL.createObjectURL(blob);
+        const element = document.createElement("a");
+        element.href = objectURL;
+        element.download = "";
+        element.click();
+      })
+      .then((res) => {
+        this.showProgess = false;
+      })
+      .catch((error) => {
+        this.advandeError = true;
+      });
+  }
+
   async getAds() {
     await this.adsService
       .showAds()
@@ -186,7 +205,6 @@ export class ShortLinkComponent implements OnInit {
           this.showLink = res.status;
           this.getAds();
           this.startTimer();
-          this.openPopup = false;
           // this.link.mainLink.some();
         },
         (err) => {

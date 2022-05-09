@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {UserDto} from 'src/app/models/user.dto';
-import {UserService} from 'src/app/services/user.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {SettingService} from 'src/app/services/setting.service';
-import {SettingDto} from 'src/app/models/setting.model';
+import { Component, OnInit } from "@angular/core";
+import { UserDto } from "src/app/models/user.dto";
+import { UserService } from "src/app/services/user.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { SettingService } from "src/app/services/setting.service";
+import { SettingDto } from "src/app/models/setting.model";
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss'],
+  selector: "app-user",
+  templateUrl: "./user.component.html",
+  styleUrls: ["./user.component.scss"],
 })
 export class UserComponent implements OnInit {
   loading: boolean;
@@ -26,7 +26,7 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.user$.subscribe((user) => {
-      Object.assign(this.user, user);
+      this.user = user;
     });
     this.getSetting();
   }
@@ -49,12 +49,12 @@ export class UserComponent implements OnInit {
     this.userService.updateUser(this.user).subscribe((resp) => {
       if (resp.status) {
         this.userService.user$.next(this.user);
-        const message = 'کاربری بروزرسانی شد';
+        const message = "کاربری بروزرسانی شد";
         this.snackBar.open(message, null, {
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
+          horizontalPosition: "center",
+          verticalPosition: "bottom",
           duration: 5000,
-          direction: 'rtl',
+          direction: "rtl",
         });
       }
     });

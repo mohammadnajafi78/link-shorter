@@ -7,8 +7,18 @@
     <mat-card-content style="margin-top: 20px">
       <div class="row input-container">
         <mat-form-field appearance="outline" class="col-md-4 col-xs-6 col-12">
+          <mat-label> ایمیل </mat-label>
+          <input [value]="user.email" readonly type="text" matInput />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-md-4 col-xs-6 col-12">
+          <mat-label> نام کاربری </mat-label>
+          <input [value]="user.username" readonly type="text" matInput />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-md-4 col-xs-6 col-12">
           <mat-label> شماره موبایل </mat-label>
-          <input [value]="user.phone" type="text" disabled matInput />
+          <input [(ngModel)]="user.phone" type="text" matInput />
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="col-md-4 col-xs-6 col-12">

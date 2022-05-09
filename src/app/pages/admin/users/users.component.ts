@@ -23,10 +23,8 @@ export class UsersComponent implements OnInit {
   count: number;
   loading: boolean;
   displayedColumns: string[] = [
-    "index",
-    "name",
-    "family",
-    "phone",
+    "username",
+    "email",
     "status",
     "role",
     "createAt",

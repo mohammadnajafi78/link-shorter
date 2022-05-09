@@ -48,7 +48,7 @@ export class TicketComponent implements OnInit {
   createTicket() {
     try {
       if (this.ticketForm.valid) {
-        this.ticket.phone = this.user.phone;
+        this.ticket.email = this.user.email;
         this.ticketService.create(this.ticket).subscribe((res) => {
           this.snackbar.open("تیکت با موفقیت ارسال شد", null, {
             duration: 5000,

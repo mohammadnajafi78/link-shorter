@@ -1,17 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {LinkDto} from 'src/app/models/link.dto';
-import {FormControl} from '@angular/forms';
-import {LinkService} from 'src/app/services/link.service';
-import {map, debounceTime} from 'rxjs/operators';
-import {MatDialog} from '@angular/material/dialog';
-import {DialogComponent} from 'src/app/components/dialog/dialog.component';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {environment} from '../../../../environments/environment';
+import { Component, OnInit } from "@angular/core";
+import { LinkDto } from "src/app/models/link.dto";
+import { FormControl } from "@angular/forms";
+import { LinkService } from "src/app/services/link.service";
+import { map, debounceTime } from "rxjs/operators";
+import { MatDialog } from "@angular/material/dialog";
+import { DialogComponent } from "src/app/components/dialog/dialog.component";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { environment } from "../../../../environments/environment";
 
 @Component({
-  selector: 'app-links',
-  templateUrl: './links.component.html',
-  styleUrls: ['./links.component.scss'],
+  selector: "app-links",
+  templateUrl: "./links.component.html",
+  styleUrls: ["./links.component.scss"],
 })
 export class LinksComponent implements OnInit {
   links: LinkDto[];
@@ -30,10 +30,10 @@ export class LinksComponent implements OnInit {
     private readonly snackBar: MatSnackBar
   ) {
     this.links = [];
-    this.status = 'active';
+    this.status = "active";
     this.loading = false;
     this.count = 0;
-    this.search = '';
+    this.search = "";
     this.skip = 0;
     this.limit = 10;
   }
@@ -91,14 +91,35 @@ export class LinksComponent implements OnInit {
   toggleChange(id: string, showAds: boolean) {
     try {
       this.loading = true;
-      this.linkService.update(id, {showAds}).subscribe((res) => {
+      this.linkService.update(id, { showAds }).subscribe((res) => {
         this.loading = false;
         if (res.status) {
-          this.snackBar.open('با موفقیت انجام شد', null, {
-            verticalPosition: 'top',
-            horizontalPosition: 'center',
+          this.snackBar.open("با موفقیت انجام شد", null, {
+            verticalPosition: "top",
+            horizontalPosition: "center",
             duration: 3000,
-            direction: 'rtl',
+            direction: "rtl",
+          });
+        }
+      });
+    } catch (error) {
+      this.loading = false;
+      console.log(error);
+    }
+  }
+
+  togglePopUp(id: string, popUp: boolean) {
+    try {
+      this.loading = true;
+
+      this.linkService.update(id, { popUp }).subscribe((res) => {
+        this.loading = false;
+        if (res.status) {
+          this.snackBar.open("با موفقیت انجام شد", null, {
+            verticalPosition: "top",
+            horizontalPosition: "center",
+            duration: 3000,
+            direction: "rtl",
           });
         }
       });
@@ -109,37 +130,37 @@ export class LinksComponent implements OnInit {
   }
 
   goToLink(link: string) {
-    if (link.startsWith('http')) {
+    if (link.startsWith("http")) {
       window.open(link);
     } else {
-      window.open('https://' + link);
+      window.open("https://" + link);
     }
   }
 
   openCopy() {
-    this.snackBar.open('لینک کپی شد', null, {
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
+    this.snackBar.open("لینک کپی شد", null, {
+      verticalPosition: "top",
+      horizontalPosition: "center",
       duration: 1000,
-      direction: 'rtl',
+      direction: "rtl",
     });
   }
 
   openQuestionDialog(id: string, status: string) {
     this.dialog
       .open(DialogComponent, {
-        width: '350px',
-        data: {title: 'غیر فعال کردن لینک', content: 'آیا مطمئن هستید'},
+        width: "350px",
+        data: { title: "غیر فعال کردن لینک", content: "آیا مطمئن هستید" },
       })
       .afterClosed()
       .subscribe((resp) => {
         if (!!resp) {
-          this.linkService.update(id, {status}).subscribe((res) => {
-            this.snackBar.open('با موفقیت انجام شد', null, {
-              verticalPosition: 'top',
-              horizontalPosition: 'center',
+          this.linkService.update(id, { status }).subscribe((res) => {
+            this.snackBar.open("با موفقیت انجام شد", null, {
+              verticalPosition: "top",
+              horizontalPosition: "center",
               duration: 3000,
-              direction: 'rtl',
+              direction: "rtl",
             });
             this.getUserLinkList();
           });

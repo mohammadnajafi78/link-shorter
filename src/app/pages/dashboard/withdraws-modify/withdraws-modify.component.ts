@@ -1,17 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {WithdrawsService} from 'src/app/services/withdraws.service';
-import {UserService} from 'src/app/services/user.service';
-import {UserDto} from 'src/app/models/user.dto';
-import {FormControl, Validators} from '@angular/forms';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {Router} from '@angular/router';
-import {SettingService} from 'src/app/services/setting.service';
-import {WithdrawsMethod} from 'src/app/models/setting.model';
+import { Component, OnInit } from "@angular/core";
+import { WithdrawsService } from "src/app/services/withdraws.service";
+import { UserService } from "src/app/services/user.service";
+import { UserDto } from "src/app/models/user.dto";
+import { FormControl, Validators } from "@angular/forms";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { Router } from "@angular/router";
+import { SettingService } from "src/app/services/setting.service";
+import { WithdrawsMethod } from "src/app/models/setting.model";
 
 @Component({
-  selector: 'app-withdraws-modify',
-  templateUrl: './withdraws-modify.component.html',
-  styleUrls: ['./withdraws-modify.component.scss'],
+  selector: "app-withdraws-modify",
+  templateUrl: "./withdraws-modify.component.html",
+  styleUrls: ["./withdraws-modify.component.scss"],
 })
 export class WithdrawsModifyComponent implements OnInit {
   user: UserDto;
@@ -34,11 +34,11 @@ export class WithdrawsModifyComponent implements OnInit {
   ngOnInit(): void {
     // اگر فرم کاربر تکمیل نیست اجازه دسترسی به صفحه را ندارد
     if (!this.validateUserForm()) {
-      this.router.navigate(['/member/dashboard']);
+      this.router.navigate(["/member/dashboard"]);
     }
 
     // مقدار برداشت باید مشحص شود و باید کمتر از درامد کاربر باشد
-    this.amountController = new FormControl('', [
+    this.amountController = new FormControl("", [
       Validators.required,
       Validators.max(this.user.salary),
     ]);
@@ -58,10 +58,10 @@ export class WithdrawsModifyComponent implements OnInit {
     ) {
       return true;
     } else {
-      this.snackbar.open('ابتدا پروفایل کاربری را تکمیل کنید', null, {
+      this.snackbar.open("ابتدا پروفایل کاربری را تکمیل کنید", null, {
         duration: 5000,
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center',
+        verticalPosition: "bottom",
+        horizontalPosition: "center",
       });
       return false;
     }
@@ -74,12 +74,12 @@ export class WithdrawsModifyComponent implements OnInit {
         this.method = res.withdrawsMethod;
         // آیا درامد کاربر به حداقل میزان رسیده است یا خیر
         if (this.method.min > this.user.salary || !this.method) {
-          this.snackbar.open('حداقل مقدار برداشت را ندارید', null, {
+          this.snackbar.open("حداقل مقدار برداشت را ندارید", null, {
             duration: 7000,
-            verticalPosition: 'bottom',
-            horizontalPosition: 'center',
+            verticalPosition: "bottom",
+            horizontalPosition: "center",
           });
-          this.router.navigate(['/member/dashboard']);
+          this.router.navigate(["/member/dashboard"]);
         }
       },
       (err) => {
@@ -91,20 +91,22 @@ export class WithdrawsModifyComponent implements OnInit {
   // ایجاد برداشت جدید
   async createWithdraws() {
     if (this.amountController.valid) {
-      if (this.method.min < this.amount) {
+      if (this.method.min <= this.amount) {
         try {
           await this.withdrawsService.create(this.amount).toPromise();
-          this.snackbar.open('درخواست شما با موفقیت ثبت شد', null, {
+          this.snackbar.open("درخواست شما با موفقیت ثبت شد", null, {
             duration: 7000,
-            verticalPosition: 'bottom',
-            horizontalPosition: 'center',
+            verticalPosition: "bottom",
+            horizontalPosition: "center",
           });
-          this.router.navigate(['/member/dashboard']);
+          this.router.navigate(["/member/dashboard"]);
         } catch (error) {
           console.log(error);
         }
       } else {
-        this.snackbar.open(`حداقل مقدار برداشت ${this.method.min} تومان میباشد`);
+        this.snackbar.open(
+          `حداقل مقدار برداشت ${this.method.min} تومان میباشد`
+        );
       }
     }
   }

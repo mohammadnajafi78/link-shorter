@@ -25,7 +25,10 @@
     </button>
 
     <button *ngIf="!user" mat-flat-button (click)="openLink(['/user/login'])">
-      وارد شوید
+      ورود
+    </button>
+    <button *ngIf="!user" mat-flat-button (click)="openLink(['/user/signup'])">
+      ثبت نام
     </button>
   </div>
 </div>

@@ -13,13 +13,13 @@
   display: flex;
   justify-content: space-around;
   font-size: 14px;
-  a{
+  a {
     text-decoration: none;
   }
 }
 
 @media only screen and (max-width: 768px) {
-  .social{
+  .social {
     margin-top: 20px;
   }
 }
@@ -33,7 +33,13 @@
     filter: grayscale(100%);
     transition: ease-out 1s;
   }
-  img:hover{
+  img:hover {
     filter: grayscale(0%);
+  }
+}
+.copy-right {
+  font-size: 14px;
+  a {
+    text-decoration: none;
   }
 }

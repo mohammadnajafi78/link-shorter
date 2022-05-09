@@ -1,0 +1,107 @@
+<div class="signup">
+  <div class="main">
+    <div class="signup-container">
+      <mat-card class="mat-elevation-z2 col-md-4 col-sm-8 col-12 card">
+        <div class="title">
+          <mat-card-title> ثبت نام </mat-card-title>
+        </div>
+
+        <div class="form-container">
+          <form [formGroup]="signUpForm">
+            <mat-form-field class="col-sm-10 col-11" appearance="outline">
+              <mat-label> نام کاربری </mat-label>
+              <input
+                [(ngModel)]="user.username"
+                formControlName="username"
+                matInput
+                type="text"
+              />
+              <mat-icon
+                matTooltip="نام کاربری وجود دارد"
+                color="warn"
+                *ngIf="exist"
+                matSuffix
+                >cancel</mat-icon
+              >
+              <mat-icon style="color: teal" *ngIf="!exist" matSuffix>
+                check_circle
+              </mat-icon>
+              <mat-error *ngIf="inputs.username.hasError('required')">
+                نام کاربری الزامی است
+              </mat-error>
+              <mat-error *ngIf="inputs.username.hasError('minlength')">
+                نام کاربری باید حداقل 5 کاراکتر باشد
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-sm-10 col-11" appearance="outline">
+              <mat-label> ایمیل </mat-label>
+              <input
+                [(ngModel)]="user.email"
+                formControlName="email"
+                matInput
+                type="text"
+              />
+              <mat-icon matSuffix> email</mat-icon>
+              <mat-error *ngIf="inputs.email.hasError('required')">
+                ایمیل الزامی است
+              </mat-error>
+              <mat-error *ngIf="inputs.email.hasError('pattern')">
+                ایمیل معتبر وارد کنید
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-sm-10 col-11" appearance="outline">
+              <mat-label> رمز عبور </mat-label>
+              <input
+                [(ngModel)]="user.password"
+                formControlName="password"
+                matInput
+                type="password"
+              />
+              <mat-icon matSuffix>lock</mat-icon>
+              <mat-error *ngIf="inputs.password.hasError('required')">
+                رمز عبور الزامی است
+              </mat-error>
+              <mat-error *ngIf="inputs.password.hasError('minlength')">
+                رمز عبور باید حداقل 6 کاراکتر باشد
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-sm-10 col-11" appearance="outline">
+              <mat-label> تکرار رمز عبور </mat-label>
+              <input
+                formControlName="confirmPassword"
+                matInput
+                [(ngModel)]="confirmPassword"
+                type="password"
+              />
+              <mat-error *ngIf="inputs.confirmPassword.hasError('required')">
+                تکرار رمز عبور الزامی است
+              </mat-error>
+              <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>
+          </form>
+        </div>
+
+        <div class="button-container">
+          <button
+            (click)="signUp()"
+            class="btn"
+            mat-raised-button
+            color="primary"
+          >
+            ثبت نام
+          </button>
+        </div>
+        <div *ngIf="passwordError" class="error">
+          رمز عبور و تکرار یکسان نیست
+        </div>
+        <div *ngIf="emailError" class="error">ایمیل قبلا ثبت شده است</div>
+        <div class="link">
+          <a routerLink="/user/login"> آیا حساب کاربری دارید؟ وارد شوید </a>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

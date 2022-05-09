@@ -17,8 +17,8 @@ body {
   font-family: "shabnam";
   src: url("/assets/fonts/Shabnam-FD.eot");
   src: url("/assets/fonts/Shabnam-FD.eot?#iefix") format("embedded-opentype"),
-  url("/assets/fonts/Shabnam-FD.woff") format("woff"),
-  url("/assets/fonts/Shabnam-FD.ttf") format("truetype");
+    url("/assets/fonts/Shabnam-FD.woff") format("woff"),
+    url("/assets/fonts/Shabnam-FD.ttf") format("truetype");
   font-style: normal;
   font-weight: normal;
 }
@@ -32,7 +32,7 @@ h3,
 h4,
 h5,
 h6,
-div:not(.vjs-play-progress):not(.vjs-volume-level),
+div:not(.vjs-play-progress):not(.vjs-volume-level):not(.video_ima-fullscreen-div):not(.video_ima-mute-div):not(.video_ima-play-pause-div),
 ul,
 li,
 table,
@@ -44,8 +44,13 @@ mat-toolbar,
 mat-card {
   font-family: shabnam !important;
 }
-
-a, a:visited, a:hover, a:active {
+.video_ima-controls-div {
+  direction: ltr;
+}
+a,
+a:visited,
+a:hover,
+a:active {
   color: inherit;
 }
 
@@ -98,7 +103,9 @@ td {
 .space-between {
   justify-content: space-between;
 }
-
+.videoAdUi {
+  direction: ltr;
+}
 .not-find {
   text-align: center;
   margin-top: 20px;
@@ -114,7 +121,9 @@ snack-bar-container {
   // justify-content: right;
   justify-content: flex-end;
 }
-
+.videoAdUiBottomBar {
+  direction: ltr !important;
+}
 .pagination {
   // margin-right: 2rem;
   display: flex;
@@ -173,15 +182,15 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 .vjs-overlay {
-  img{
+  img {
     width: 728px;
     max-width: 190%;
     height: 75px;
   }
 }
-.video-js{
+.video-js {
   max-width: 100% !important;
 }
-a{
+a {
   cursor: pointer;
 }

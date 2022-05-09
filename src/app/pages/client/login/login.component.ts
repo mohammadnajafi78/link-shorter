@@ -1,3 +1,4 @@
+import { map } from "rxjs/operators";
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "../../../services/user.service";
 import { FormControl, Validators } from "@angular/forms";
@@ -10,21 +11,14 @@ import { Router } from "@angular/router";
   styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
-  state: "phone" | "key";
-  phone: string;
-  key: string;
+  username: string;
+  password: string;
   loading: boolean;
   verifyError: string;
+  loginError: boolean;
+  usernameControl = new FormControl("", [Validators.required]);
 
-  phoneControl = new FormControl("", [
-    Validators.required,
-    Validators.pattern(/0?[1-9][0-9]{9}/),
-  ]);
-
-  keyControl = new FormControl("", [
-    Validators.required,
-    Validators.pattern(/[0-9]{6}/),
-  ]);
+  passwordControl = new FormControl("", [Validators.required]);
 
   constructor(
     private readonly userService: UserService,
@@ -33,67 +27,45 @@ export class LoginComponent implements OnInit {
   ) {
     userService.user$.subscribe((res) => {
       if (res !== null) {
-        this.router.navigate(["/"]);
+        this.router.navigate(["/member/dashboard"]);
       }
     });
-    this.phone = "";
-    this.key = "";
-    this.state = "phone";
+    this.username = "";
+    this.password = "";
     this.loading = false;
     this.verifyError = "";
+    this.loginError = false;
   }
 
   ngOnInit(): void {}
 
-  // ارسال شماره همراه برای ارسال کد
-  signin() {
-    if (this.phoneControl.invalid) {
-      return false;
-    }
-    this.loading = true;
-    if (this.phone.startsWith("0")) {
-      this.phone = this.phone.substr(1);
-    }
-    const identifier = localStorage.getItem("identifier");
-    this.userService.signin(this.phone, identifier).subscribe(
-      (res) => {
-        if (res.status) {
-          this.state = "key";
-          this.loading = false;
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.loading = false;
+  async login() {
+    try {
+      if (this.usernameControl.valid && this.passwordControl.valid) {
+        await this.userService
+          .login(this.username, this.password)
+          .pipe(
+            map((res) => {
+              if (res.status) {
+                localStorage.setItem("token", res.token);
+                this.profile();
+                this.snackbar.open("وارد شدید", null, {
+                  verticalPosition: "bottom",
+                  horizontalPosition: "center",
+                  duration: 4000,
+                });
+                this.router.navigate(["/member/dashboard"]);
+              }
+            })
+          )
+          .toPromise();
       }
-    );
-  }
-
-  // اعتبار سنجی کد
-  verify() {
-    if (this.keyControl.invalid) {
-      return false;
-    }
-    this.loading = true;
-    this.userService.verify(this.phone, this.key).subscribe(
-      (res) => {
-        localStorage.setItem("token", res.token);
-
-        this.snackbar.open(res.message, null, {
-          verticalPosition: "bottom",
-          horizontalPosition: "center",
-          duration: 3000,
-          direction: "rtl",
-        });
-        this.profile();
-        this.router.navigate(["/member/dashboard"]);
-      },
-      (err) => {
-        this.loading = false;
-        this.verifyError = err.error.message;
-        console.log(err.error.message);
+    } catch (error) {
+      if (!!error.error.message) {
+        this.loginError = true;
       }
-    );
+      console.log(error);
+    }
   }
 
   // گرفتن پروفایل کاربر

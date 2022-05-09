@@ -20,18 +20,15 @@ export class UserService {
 
   base = "/api/users";
 
-  signin(phone: string, identifier?: string) {
-    return this.http.post<{ status: boolean }>(`${this.base}/signin`, {
-      phone,
-      identifier,
-    });
+  login(username: string, password: string) {
+    return this.http.post<{ token: string; status: boolean }>(
+      `${this.base}/login`,
+      { username, password }
+    );
   }
 
-  verify(phone: string, key: string) {
-    return this.http.post<{ message: string; token: string }>(
-      `${this.base}/verify`,
-      { phone, key }
-    );
+  signUp(user: UserDto) {
+    return this.http.post<{ status: boolean }>(`${this.base}/signup`, user);
   }
 
   findSubset() {
@@ -54,5 +51,29 @@ export class UserService {
 
   updateUser(user: UserDto) {
     return this.http.put<{ status: boolean }>(`${this.base}/profile`, user);
+  }
+
+  usernameExist(username: string) {
+    return this.http.post<boolean>(`${this.base}/username`, { username });
+  }
+
+  forgetPassword(email: string) {
+    return this.http.post<{ status: boolean }>(`${this.base}/forget-password`, {
+      email,
+    });
+  }
+
+  verifyResetPassword(code: string) {
+    return this.http.post<{ status: boolean }>(
+      `${this.base}/verify/${code}`,
+      {}
+    );
+  }
+
+  changePassword(code: string, password: string) {
+    return this.http.post<{ status: boolean }>(`${this.base}/change-password`, {
+      code,
+      password,
+    });
   }
 }

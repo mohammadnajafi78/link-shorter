@@ -36,14 +36,16 @@
           <mat-form-field appearance="outline" class="col-md-4 col-12">
             <mat-label> شماره تلفن</mat-label>
             <input
-              [(ngModel)]="user.phone"
+              [(ngModel)]="ticket.phone"
               formControlName="phone"
-              readonly
               type="text"
               matInput
             />
-            <mat-error *ngIf="inputs.phone.errors">
+            <mat-error *ngIf="inputs.phone.hasError('required')">
               شماره تلفن الزامی است
+            </mat-error>
+            <mat-error *ngIf="inputs.phone.hasError('pattern')">
+              شماره تلفن معتبر وارد کنید
             </mat-error>
           </mat-form-field>
 
@@ -62,8 +64,9 @@
           <mat-form-field appearance="outline" class="col-md-4 col-12">
             <mat-label> ایمیل</mat-label>
             <input
-              [(ngModel)]="ticket.email"
+              [(ngModel)]="user.email"
               formControlName="email"
+              readonly
               type="text"
               matInput
             />

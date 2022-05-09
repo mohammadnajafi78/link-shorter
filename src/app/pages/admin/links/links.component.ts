@@ -1,16 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {LinkDto} from 'src/app/models/link.dto';
-import {LinkService} from 'src/app/services/link.service';
-import {map, debounceTime} from 'rxjs/operators';
-import {FormControl} from '@angular/forms';
-import {MatDialog} from '@angular/material/dialog';
-import {DialogComponent} from 'src/app/components/dialog/dialog.component';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { Component, OnInit } from "@angular/core";
+import { LinkDto } from "src/app/models/link.dto";
+import { LinkService } from "src/app/services/link.service";
+import { map, debounceTime } from "rxjs/operators";
+import { FormControl } from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog";
+import { DialogComponent } from "src/app/components/dialog/dialog.component";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
-  selector: 'app-links',
-  templateUrl: './links.component.html',
-  styleUrls: ['./links.component.scss'],
+  selector: "app-links",
+  templateUrl: "./links.component.html",
+  styleUrls: ["./links.component.scss"],
 })
 export class LinksComponent implements OnInit {
   search: string;
@@ -22,14 +22,15 @@ export class LinksComponent implements OnInit {
   count: number;
   status: string;
   displayedColumns: string[] = [
-    'index',
-    'phone',
-    'status',
-    'mainLink',
-    'shortLink',
-    'showAds',
-    'createdAt',
-    'action',
+    "index",
+    "phone",
+    "status",
+    "mainLink",
+    "shortLink",
+    "showAds",
+    "popUp",
+    "createdAt",
+    "action",
   ];
 
   constructor(
@@ -37,13 +38,13 @@ export class LinksComponent implements OnInit {
     private readonly dialog: MatDialog,
     private readonly snackBar: MatSnackBar
   ) {
-    this.search = '';
+    this.search = "";
     this.limit = 10;
     this.skip = 0;
     this.loading = false;
     this.links = [];
     this.count = 0;
-    this.status = 'active';
+    this.status = "active";
   }
 
   ngOnInit(): void {
@@ -56,20 +57,20 @@ export class LinksComponent implements OnInit {
   }
 
   goToLink(link: string) {
-    if (link.startsWith('http')) {
+    if (link.startsWith("http")) {
       window.open(link);
     } else {
-      window.open('https://' + link);
+      window.open("https://" + link);
     }
   }
 
   // باز کردن اسنک بار
   _openSnackbar(message: string) {
     this.snackBar.open(message, null, {
-      verticalPosition: 'top',
-      horizontalPosition: 'left',
+      verticalPosition: "top",
+      horizontalPosition: "left",
       duration: 3000,
-      direction: 'rtl',
+      direction: "rtl",
     });
   }
 
@@ -125,18 +126,18 @@ export class LinksComponent implements OnInit {
       .open(DialogComponent, {
         data: {
           title: `لینک کوتاه به آدرس ${link.shortLink} مشکل دار است`,
-          content: 'آیا مطمئن هستید؟',
+          content: "آیا مطمئن هستید؟",
         },
-        width: '350px',
+        width: "350px",
       })
       .afterClosed()
       .subscribe((status) => {
         if (!!status) {
           this.linkService
-            .update(link._id, {status: 'warning'})
+            .update(link._id, { status: "warning" })
             .subscribe((res) => {
               if (res.status) {
-                this._openSnackbar('لینک مشکل دار شد');
+                this._openSnackbar("لینک مشکل دار شد");
                 this.resetPage();
               }
             });

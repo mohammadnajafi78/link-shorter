@@ -77,21 +77,46 @@
             *ngIf="link.mainLink && timeLeft === 0"
             [ngSwitch]="format"
           >
-            <div class="video" *ngSwitchCase="'video'">
-              <div class="video-container col-12">
-                <app-vjs [src]="link.mainLink"></app-vjs>
-              </div>
-              <div class="download">
-                <a
-                  download
-                  [href]="link.mainLink"
-                  mat-raised-button
-                  color="primary"
-                >
-                  دانلود فیلم
-                </a>
-              </div>
+            <div class="video-container col-12" *ngSwitchCase="'video'">
+              <app-vjs [src]="link.mainLink"></app-vjs>
             </div>
+            <div *ngIf="format !== 'default' && !advandeError" class="download">
+              <button
+                (click)="advanceDownload(link.mainLink)"
+                *ngIf="!showProgess"
+                mat-raised-button
+                color="primary"
+              >
+                دانلود پیشرفته
+              </button>
+
+              <mat-spinner diameter="50" *ngIf="showProgess"></mat-spinner>
+            </div>
+            <div
+              style="text-align: center; margin-top: 10px"
+              *ngIf="showProgess && !advandeError"
+            >
+              درحال دانلود، لطفا صفحه مرورگر خود را نبندید
+            </div>
+            <div
+              style="text-align: center; margin-top: 10px; font-weight: 600"
+              *ngIf="advandeError"
+            >
+              امکان دانلود پیشرفته برای این فایل وجود ندارد
+            </div>
+            <div class="download">
+              <a
+                *ngSwitchCase="'video'"
+                download
+                style="margin-bottom: 10px"
+                [href]="link.mainLink"
+                mat-raised-button
+                color="primary"
+              >
+                دانلود فیلم
+              </a>
+            </div>
+
             <div
               *ngSwitchCase="'file'"
               style="text-align: center; margin: 20px 0px"

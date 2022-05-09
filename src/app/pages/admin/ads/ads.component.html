@@ -1,17 +1,17 @@
 <mat-toolbar class="toolbar" color="primary">
   <span> تبلیغات </span>
-  <button (click)="openCreateDialog()" mat-raised-button>
-    ایجاد
-  </button>
+  <button (click)="openCreateDialog()" mat-raised-button>ایجاد</button>
 </mat-toolbar>
-<mat-progress-bar *ngIf="loading" color="warn" mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar
+  *ngIf="loading"
+  color="warn"
+  mode="indeterminate"
+></mat-progress-bar>
 <div class="table-container">
-
-
   <mat-card class="search-card">
     <div class="row space-between">
       <div class="col-4">
-        <mat-form-field style="width: 100%;">
+        <mat-form-field style="width: 100%">
           <mat-label> جست و جو</mat-label>
           <input
             [formControl]="searchControl"
@@ -26,27 +26,23 @@
       <div class="col-3">
         <mat-form-field>
           <mat-select [(ngModel)]="type" (selectionChange)="resetPage()">
-            <mat-option [value]="'vertical'">
-              عمودی
-            </mat-option>
-            <mat-option [value]="'horizontal'">
-              افقی
-            </mat-option>
-            <mat-option [value]="'movie'">
-              فیلم
-            </mat-option>
-            <mat-option [value]="'popup'">
-              پاپ آپ
-            </mat-option>
+            <mat-option [value]="'vertical'"> عمودی </mat-option>
+            <mat-option [value]="'horizontal'"> افقی </mat-option>
+            <mat-option [value]="'movie'"> فیلم </mat-option>
+            <mat-option [value]="'popup'"> پاپ آپ </mat-option>
+            <mat-option [value]="'vast'"> وست </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
     </div>
   </mat-card>
-  <div style="text-align: center;margin-top: 20px" *ngIf="!loading && ads !== null && ads.length===0 ">
-      تبلیغی یافت نشد
+  <div
+    style="text-align: center; margin-top: 20px"
+    *ngIf="!loading && ads !== null && ads.length === 0"
+  >
+    تبلیغی یافت نشد
   </div>
-  <div *ngIf="!loading && ads !== null && ads.length>0 ">
+  <div *ngIf="!loading && ads !== null && ads.length > 0">
     <table mat-table [dataSource]="ads" class="table mat-elevation-z8">
       <ng-container matColumnDef="index">
         <th mat-header-cell *matHeaderCellDef>#</th>
@@ -62,6 +58,7 @@
           <span *ngSwitchCase="'popup'"> پاپ آپ </span>
           <span *ngSwitchCase="'vertical'"> عمودی </span>
           <span *ngSwitchCase="'horizontal'"> افقی </span>
+          <span *ngSwitchCase="'vast'"> وست </span>
         </td>
       </ng-container>
 
@@ -74,21 +71,19 @@
         </td>
       </ng-container>
 
-
       <ng-container matColumnDef="active">
         <th mat-header-cell *matHeaderCellDef>وضعیت</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.active ? 'فعال' : 'غیر فعال' }}
+          {{ element.active ? "فعال" : "غیر فعال" }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="iran">
         <th mat-header-cell *matHeaderCellDef>کشور تبلیغ</th>
         <td mat-cell *matCellDef="let element">
-          {{element.iran ? 'ایران' : 'خارج' }}
+          {{ element.iran ? "ایران" : "خارج" }}
         </td>
       </ng-container>
-
 
       <ng-container matColumnDef="createdAt">
         <th mat-header-cell *matHeaderCellDef>تاریخ ایجاد</th>
@@ -100,14 +95,26 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>عملیات</th>
         <td mat-cell *matCellDef="let element">
-          <button mat-icon-button (click)="openPreview(element)">
+          <button
+            *ngIf="element.type !== 'vast'"
+            mat-icon-button
+            (click)="openPreview(element)"
+          >
             <mat-icon>open_in_new</mat-icon>
           </button>
-          <button (click)="openEditDialog(element)" mat-icon-button color="primary">
+          <button
+            (click)="openEditDialog(element)"
+            mat-icon-button
+            color="primary"
+          >
             <mat-icon> edit</mat-icon>
           </button>
 
-          <button (click)="openDeleteDialog(element)" mat-icon-button color="warn">
+          <button
+            (click)="openDeleteDialog(element)"
+            mat-icon-button
+            color="warn"
+          >
             <mat-icon> delete</mat-icon>
           </button>
         </td>
@@ -118,20 +125,12 @@
     </table>
     <div class="pagination-container justify-content-left mat-elevation-z1">
       <div class="pagination">
-        <span class="inf">
-          تعداد نمایش در هر صفحه
-        </span>
+        <span class="inf"> تعداد نمایش در هر صفحه </span>
         <mat-form-field>
           <mat-select [(ngModel)]="limit" (selectionChange)="getAll()">
-            <mat-option [value]="10">
-              10
-            </mat-option>
-            <mat-option [value]="20">
-              20
-            </mat-option>
-            <mat-option [value]="50">
-              50
-            </mat-option>
+            <mat-option [value]="10"> 10 </mat-option>
+            <mat-option [value]="20"> 20 </mat-option>
+            <mat-option [value]="50"> 50 </mat-option>
           </mat-select>
         </mat-form-field>
 

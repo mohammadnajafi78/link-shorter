@@ -1,45 +1,54 @@
 <div class="main">
   <mat-card class="col-12">
     <p class="des">
-      برنامه زیرمجموعه گیری کوتاه کننده لینک وان ایکس اَد یک راه عالی و یک خدمت عالی
-      برای گسترش کسب و کار و انگیزه کاربران که باعث افزایش کسب درآمد شما میشود.
-      دوستانتان را معرفی کنید و درصدی از درآمد آنها را جایزه بگیرید!
+      برنامه زیرمجموعه گیری کوتاه کننده لینک وان ایکس اَد یک راه عالی و یک خدمت
+      عالی برای گسترش کسب و کار و انگیزه کاربران که باعث افزایش کسب درآمد شما
+      میشود. دوستانتان را معرفی کنید و درصدی از درآمد آنها را جایزه بگیرید!
     </p>
     <mat-form-field appearance="outline" class="col-12">
       <input
         type="text"
         matInput
-        [value]="url+ '/ref/'+ user.identifierCode"
+        [value]="url + '/ref/' + user.identifierCode"
         readonly
       />
-      <mat-icon (click)="openCopySnackBar()" [cdkCopyToClipboard]="url+'/ref/'+ user.identifierCode "
-                style="cursor: pointer;" color="primary"
-                matSuffix>
+      <mat-icon
+        (click)="openCopySnackBar()"
+        [cdkCopyToClipboard]="url + '/ref/' + user.identifierCode"
+        style="cursor: pointer"
+        color="primary"
+        matSuffix
+      >
         file_copy
       </mat-icon>
     </mat-form-field>
     <mat-card-title class="sec-title">
-        <span>
-          زیر مجموعه های من
-        </span>
+      <span> زیر مجموعه های من </span>
     </mat-card-title>
-    <table *ngIf="subsets.length > 0" style="width: 100%" class="mat-elevation-z2" mat-table [dataSource]="subsets">
+    <table
+      *ngIf="subsets.length > 0"
+      style="width: 100%"
+      class="mat-elevation-z2"
+      mat-table
+      [dataSource]="subsets"
+    >
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
 
       <!-- Position Column -->
       <ng-container matColumnDef="fullName">
-        <th mat-header-cell *matHeaderCellDef> نام و نام خانوادگی</th>
+        <th mat-header-cell *matHeaderCellDef>نام کاربری</th>
         <td mat-cell *matCellDef="let element">
-          <span *ngIf="element.name && element.family"> {{element.name}}{{element.family}} </span>
-          <span *ngIf="!element.name && !element.family"> ندارد </span>
+          <span> {{ element.username }} </span>
         </td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="createdAt">
         <th mat-header-cell *matHeaderCellDef>تاریخ</th>
-        <td mat-cell *matCellDef="let element"> {{element.createdAt | jalaali: "dddd  jD jMMMM jYYYY"}} </td>
+        <td mat-cell *matCellDef="let element">
+          {{ element.createdAt | jalaali: "dddd  jD jMMMM jYYYY" }}
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

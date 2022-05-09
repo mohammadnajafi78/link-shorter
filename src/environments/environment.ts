@@ -5,8 +5,9 @@
 export const environment = {
   production: false,
   base: "/",
-  url: "https://1xad.net",
+  // url: "https://1xad.net",
   // url: "http://localhost:3000",
+  url: "https://my-link-shorter.herokuapp.com",
 };
 
 /*

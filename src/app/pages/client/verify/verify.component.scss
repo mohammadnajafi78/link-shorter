@@ -1,36 +1,19 @@
+.verify-component {
+  background-color: #103c9b;
+  height: 100vh;
+}
 .main {
   padding: 60px;
 }
 
-.login {
+.signup {
   background-color: #103c9b;
   height: 100vh;
 }
 
-@media only screen and (max-width: 768px) {
-  .main {
-    padding: 10px;
-  }
-}
-.error {
-  color: red;
-}
-.login-container {
+.verify-container {
   display: flex;
   justify-content: center;
-  //align-items: center;
-}
-
-mat-card {
-  margin-top: 20px;
-}
-
-.button-container {
-  text-align: center;
-  margin: 5px 0px;
-  button {
-    width: 70%;
-  }
 }
 
 .form-container {
@@ -45,13 +28,24 @@ mat-card {
   }
 }
 
-mat-error {
-  margin: 0px !important;
-  font-size: 13px;
+mat-card {
+  margin-top: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+  .main {
+    padding: 10px;
+  }
+}
+.button-container {
+  text-align: center;
+}
+.btn {
+  width: 70%;
 }
 .link {
   text-align: center;
-  margin-top: 10px;
+  margin: 10px 0px;
   a {
     text-decoration: none;
     font-size: 14px;

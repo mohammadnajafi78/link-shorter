@@ -8,6 +8,7 @@ export interface LinkDto {
   status?: string;
   user?: UserDto | string;
   showAds?: boolean;
+  popUp?: boolean;
   readonly createdAt?: Date;
   readonly updatedAt?: Date;
 }

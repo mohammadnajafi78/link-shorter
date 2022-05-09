@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
-  selector: 'app-ref',
-  templateUrl: './ref.component.html',
-  styleUrls: ['./ref.component.scss']
+  selector: "app-ref",
+  templateUrl: "./ref.component.html",
+  styleUrls: ["./ref.component.scss"],
 })
 export class RefComponent implements OnInit {
   identifier: string;
@@ -14,13 +14,11 @@ export class RefComponent implements OnInit {
     private readonly router: Router
   ) {
     this.route.paramMap.subscribe((params) => {
-      this.identifier = (params.get('identifier'));
+      this.identifier = params.get("identifier");
     });
-    localStorage.setItem('idetifer', this.identifier);
-    this.router.navigate(['/']);
+    localStorage.setItem("identifier", this.identifier);
+    this.router.navigate(["/"]);
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

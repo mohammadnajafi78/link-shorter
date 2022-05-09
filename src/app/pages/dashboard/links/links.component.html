@@ -79,12 +79,22 @@
       </div>
       <div class="toggle col-md-4 col-12">
         <div>
-          <mat-slide-toggle
-            [(ngModel)]="link.showAds"
-            (change)="toggleChange(link._id, link.showAds)"
-          >
-            نوع لینک : {{ link.showAds ? "درامد زا" : "بدون درامد" }}
-          </mat-slide-toggle>
+          <div>
+            <mat-slide-toggle
+              [(ngModel)]="link.showAds"
+              (change)="toggleChange(link._id, link.showAds)"
+            >
+              نوع لینک : {{ link.showAds ? "درامد زا" : "بدون درامد" }}
+            </mat-slide-toggle>
+          </div>
+          <div style="margin-top: 20px">
+            <mat-slide-toggle
+              [(ngModel)]="link.popUp"
+              (change)="togglePopUp(link._id, link.popUp)"
+            >
+              {{ link.popUp ? "پاپ آپ" : "بدون پاپ آپ" }}
+            </mat-slide-toggle>
+          </div>
         </div>
       </div>
       <div class="col-md-3 col-12 btn-group">

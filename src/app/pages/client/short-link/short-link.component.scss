@@ -15,7 +15,7 @@ $base-color: mat-color($primary, default);
   .main {
     padding: 10px;
   }
-  .recaptcha{
+  .recaptcha {
     margin: 30px 0px;
   }
 }
@@ -28,15 +28,15 @@ $base-color: mat-color($primary, default);
   justify-content: center;
   margin-top: 30px;
 }
-.video{
+.video {
   margin: 20px 0px;
 }
-.recaptcha{
+.recaptcha {
   display: flex;
   justify-content: center;
   //margin: 30px 0px;
 }
-.center{
+.center {
   display: flex;
   flex-direction: column;
   //align-items: flex-end;
@@ -49,17 +49,19 @@ $base-color: mat-color($primary, default);
 .download {
   margin-top: 20px;
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
-.horizontal{
+.horizontal {
   width: 728px;
   height: 90px;
   max-width: 100%;
 }
-.vertical{
+.vertical {
   width: 120px;
   height: 240px;
   max-width: 100%;
 }
-.col-md-2{
+.col-md-2 {
   text-align: center;
 }
